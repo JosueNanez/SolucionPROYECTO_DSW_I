@@ -1,0 +1,148 @@
+--Base de datos de FARMASALUD
+if db_id('FARMASALUD') is not null 
+begin 
+	use master 
+	drop database FARMASALUD
+end
+
+create database FARMASALUD
+go
+
+use FARMASALUD
+GO
+
+--creando tablas
+
+create table tb_proveedor
+(
+idProveedor char(4) not null primary key,
+nomProveedor varchar(40) not null,
+dirProveedor varchar(50) not null,
+telefono varchar(9) not null,
+)
+go
+
+create table tb_productos
+(
+idProducto char(4) not null primary key,
+nomProducto varchar(30) not null,
+fechVencimiento varchar(30) not null,
+idProveedor char(4) not null,
+precio decimal(10,1) not null,
+stock int not null,
+constraint fk_produc foreign key (idProveedor) references tb_proveedor (idProveedor)
+)
+go
+
+create table tb_tipoUsuario
+(
+id_tipo int not null primary key,
+desc_tipo varchar (50) not null
+)
+go
+
+create table tb_usuarios
+(
+id_Usuario char(4) not null primary key,
+nom_Usuario varchar(40) not null,
+correo_Usuario varchar(40) not null,
+contra varchar(20) not null,
+dirUsuario varchar(50) not null,
+id_tipo int not null         /*adm y cli */
+foreign key (id_tipo) references tb_tipoUsuario (id_tipo)
+)
+go
+
+
+create table tb_ordenPedido
+(
+numOrdendePedido int identity not null primary key,
+id_Usuario char(4) not null,
+nom_Usuario varchar(40) not null,
+idProducto char(4) not null,
+precio decimal(10,1) not null,
+stock int not null,
+fechaOrden varchar(30) not null,
+constraint fk_orpidcli foreign key (id_Usuario) references tb_usuarios (id_Usuario),
+constraint fk_orpidpro foreign key (idProducto) references tb_productos (idProducto)
+)
+go
+
+
+--insertando datos en las tablas
+
+
+--proveedor
+insert into tb_proveedor values('PR01','Sebal Farma Distribuciones S.A.C.','SAN MIGUEL - LIMA','014059716')
+insert into tb_proveedor values('PR02','P y G Distribuidores S.R.L.','SAN MIGUEL - LIMA','016527106')
+insert into tb_proveedor values('PR03','B. Braun','ATE - LIMA','013261825')
+insert into tb_proveedor values('PR04','F y a Representaciones S.A.C.','SAN MIGUEL - LIMA','012809631')
+
+
+--productos
+insert into tb_productos values('P001','Doloral Suspensión Oral','15/05/2025','PR01',13.2,60)
+insert into tb_productos values('P002','Dolo-Quimagésico Aerosol','25/06/2025','PR02',15.1,50)
+insert into tb_productos values('P003','Multi Frost Pomada','09/05/2025','PR01',15.2,60)
+insert into tb_productos values('P004','Voltaren 1 % Emulgel','01/01/2023','PR03',39.8,40)
+insert into tb_productos values('P005','Reuma Plus Ungüento','12/02/2025','PR03',21.3,25)
+insert into tb_productos values('P006','Hep.52 Tabletas Recubiertas','01/05/2025','PR04',48.5,80)
+insert into tb_productos values('P007','Nonpiron Suspensión Oral','10/07/2023','PR04',09.7,20)
+insert into tb_productos values('P008','Bengay Gel','08/04/2023','PR01',15.7,40)
+insert into tb_productos values('P009','Koflet Jarabe','08/05/2025','PR02',21.6,70)
+insert into tb_productos values('P010','Reuma plus Ungüento','15/05/2025','PR03',14.2,15)
+
+ --tipoUsuario
+insert into tb_tipoUsuario values (1, 'Administrador')
+insert into tb_tipoUsuario values (2, 'Cliente')
+
+  --usuarios
+insert into tb_usuarios values('C001','Albert Tello','albert01@hotmail.com','albert01','Príncipe de Vergara 36',2)
+insert into tb_usuarios values('ADM1','Admin1','adm123@hotmail.com','adm123','Calle Cristobal Bordiú',1)
+insert into tb_usuarios values('C003','Erick Chavez','erick03@hotmail.com','erick03','Avenida de Roma',2)
+insert into tb_usuarios values('C004','Gonzalo Cachuy','gonzalo04@hotmail.com','gonzalo04','orge Basadre 498',2)
+insert into tb_usuarios values('C005','Brenda Vargas','brenda05@hotmail.com','brenda05','Calle Los Pinos,',2)
+
+--orden de pedido
+insert into tb_ordenPedido values('C001','Albert Tello','P003',15.2,60,'15/05/2022')
+insert into tb_ordenPedido values('C003','Erick Chavez','P006',48.5,80,'15/05/2022')
+insert into tb_ordenPedido values('C004','Gonzalo Cachuy','P008',15.7,40,'15/05/2022')
+insert into tb_ordenPedido values('C005','Brenda Vargas','P009',21.6,70,'15/05/2022')
+
+select * from tb_proveedor
+select * from tb_productos
+select * from tb_usuarios
+select * from tb_ordenPedido
+go
+
+
+--------------------------------------------------------------------------------
+CREATE OR ALTER PROC usp_listarTiposUser
+AS
+BEGIN
+	SELECT * FROM tb_tipoUsuario
+End
+Go
+
+
+CREATE OR ALTER PROC usp_Usuario_Merge
+@id_Usuario char(4),
+@nom_Usuario varchar(40),
+@correo_Usuario varchar(40),
+@contra varchar(20),
+@dirUsuario varchar(50),
+@id_tipo int
+AS
+BEGIN
+	MERGE tb_usuarios AS TARGET
+	USING (SELECT @id_Usuario, @nom_Usuario, @correo_Usuario, @contra, @dirUsuario,@id_tipo)
+		AS SOURCE(id_Usuario,nom_Usuario, correo_Usuario,contra,dirUsuario, id_tipo)
+		on target.id_Usuario = source.id_Usuario
+	WHEN MATCHED then 
+	 Update Set target.nom_Usuario=source.nom_Usuario, target.correo_Usuario=source.correo_Usuario,
+	 target.contra=source.contra, target.dirUsuario=source.dirUsuario, target.id_tipo= source.id_tipo
+	WHEN NOT MATCHED THEN
+	 Insert Values(source.id_Usuario, source.nom_Usuario, source.correo_Usuario,source.contra, source.dirUsuario, source.id_tipo);
+END
+GO
+
+--------------------------------------------------------------------------------
