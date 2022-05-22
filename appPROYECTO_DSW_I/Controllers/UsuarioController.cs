@@ -37,6 +37,9 @@ namespace appPROYECTO_DSW_I.Controllers
 			return View(reg);
 		}
 
+
+		//Comentario de prueba
+
 		public IActionResult Index()
         {
             return View();
