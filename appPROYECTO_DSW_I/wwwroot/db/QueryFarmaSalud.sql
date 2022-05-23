@@ -112,6 +112,7 @@ select * from tb_proveedor
 select * from tb_productos
 select * from tb_usuarios
 select * from tb_ordenPedido
+select * from tb_tipoUsuario
 go
 
 
@@ -146,3 +147,46 @@ END
 GO
 
 --------------------------------------------------------------------------------
+
+--PROCEDIMIENTO PARA LISTAR PRODUCTOS
+create or alter proc usp_ListarProductos
+as
+begin
+	select p.idProducto,p.nomProducto,p.fechVencimiento,e.nomProveedor,p.precio,p.stock
+	from tb_productos p inner join tb_proveedor e
+	on p.idProveedor=e.idProveedor
+end
+go
+
+exec usp_ListarProductos
+go
+
+--PROCEDIMIENTO PARA LISTAR PROVEEDORES
+create or alter proc usp_ListarProveedor
+as
+begin
+	select * from tb_proveedor
+end
+go
+
+
+--Merge de productos
+create or alter proc usp_Merge_InsertUpd
+@idproducto char(4),@nomproducto varchar(30),
+@fechvencimiento varchar(30),@idproveedor char(4),
+@precio decimal(10,1),@stock int
+as
+begin
+	Merge tb_productos as target
+	using (select @idproducto,@nomproducto,@fechvencimiento,@idproveedor,
+			@precio,@stock)
+		as source(idProducto,nomProducto,fechVencimiento,idProveedor,precio,stock)
+		on target.idProducto=source.idProducto
+	when matched then
+		update set target.nomProducto=source.nomProducto,target.fechVencimiento=source.fechVencimiento,
+		target.idProveedor=source.idProveedor,target.precio=source.precio,target.stock=source.stock
+	when not matched then
+		insert values(source.idProducto,source.nomProducto,source.fechVencimiento,source.idProveedor,source.precio,
+		source.stock);
+end
+go
