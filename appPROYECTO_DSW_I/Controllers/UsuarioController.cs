@@ -36,12 +36,6 @@ namespace appPROYECTO_DSW_I.Controllers
 			ViewBag.LISTCBO = new SelectList(await Task.Run(() => UsuarioProceso.ListTipoUser()), "idTipo", "descTipo", reg.idTipo);
 			return View(reg);
 		}
-
-
-		//Comentario de prueba
-		//comentario de prueba 2
-		//comentario de prueba 3
-		//comentario de prueba 4
 		
 
 		public IActionResult Index()

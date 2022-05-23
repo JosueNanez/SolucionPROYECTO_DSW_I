@@ -28,7 +28,7 @@ namespace appPROYECTO_DSW_I.Models
             {
                 ListadoTipos.Add(new TipoUserModel()
                 {
-                    idTipo = int.Parse(dr[0].ToString()),
+                    idTipo = dr.GetString(0),
                     descTipo = dr.GetString(1)
                 });
             }

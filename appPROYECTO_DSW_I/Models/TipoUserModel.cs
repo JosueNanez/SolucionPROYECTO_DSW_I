@@ -10,7 +10,7 @@ namespace appPROYECTO_DSW_I.Models
     public class TipoUserModel
     {
         [Display(Name ="Código")]
-        public int idTipo { get; set; }
+        public string idTipo { get; set; }
         [Display(Name ="Descripción")]
         public string descTipo { get; set; }
     }

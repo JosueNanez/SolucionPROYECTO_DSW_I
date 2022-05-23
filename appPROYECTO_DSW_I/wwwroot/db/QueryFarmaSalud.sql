@@ -36,7 +36,7 @@ go
 
 create table tb_tipoUsuario
 (
-id_tipo int not null primary key,
+id_tipo char(1) not null primary key,
 desc_tipo varchar (50) not null
 )
 go
@@ -48,7 +48,7 @@ nom_Usuario varchar(40) not null,
 correo_Usuario varchar(40) not null,
 contra varchar(20) not null,
 dirUsuario varchar(50) not null,
-id_tipo int not null         /*adm y cli */
+id_tipo char(1) not null         /*adm y cli */
 foreign key (id_tipo) references tb_tipoUsuario (id_tipo)
 )
 go
@@ -96,11 +96,11 @@ insert into tb_tipoUsuario values (1, 'Administrador')
 insert into tb_tipoUsuario values (2, 'Cliente')
 
   --usuarios
-insert into tb_usuarios values('C001','Albert Tello','albert01@hotmail.com','albert01','Príncipe de Vergara 36',2)
-insert into tb_usuarios values('ADM1','Admin1','adm123@hotmail.com','adm123','Calle Cristobal Bordiú',1)
-insert into tb_usuarios values('C003','Erick Chavez','erick03@hotmail.com','erick03','Avenida de Roma',2)
-insert into tb_usuarios values('C004','Gonzalo Cachuy','gonzalo04@hotmail.com','gonzalo04','orge Basadre 498',2)
-insert into tb_usuarios values('C005','Brenda Vargas','brenda05@hotmail.com','brenda05','Calle Los Pinos,',2)
+insert into tb_usuarios values('C001','Albert Tello','albert01@hotmail.com','albert01','Príncipe de Vergara 36','2')
+insert into tb_usuarios values('ADM1','Admin1','adm123@hotmail.com','adm123','Calle Cristobal Bordiú','1')
+insert into tb_usuarios values('C003','Erick Chavez','erick03@hotmail.com','erick03','Avenida de Roma','2')
+insert into tb_usuarios values('C004','Gonzalo Cachuy','gonzalo04@hotmail.com','gonzalo04','orge Basadre 498','2')
+insert into tb_usuarios values('C005','Brenda Vargas','brenda05@hotmail.com','brenda05','Calle Los Pinos,','2')
 
 --orden de pedido
 insert into tb_ordenPedido values('C001','Albert Tello','P003',15.2,60,'15/05/2022')
@@ -131,7 +131,7 @@ CREATE OR ALTER PROC usp_Usuario_Merge
 @correo_Usuario varchar(40),
 @contra varchar(20),
 @dirUsuario varchar(50),
-@id_tipo int
+@id_tipo char(1)
 AS
 BEGIN
 	MERGE tb_usuarios AS TARGET
