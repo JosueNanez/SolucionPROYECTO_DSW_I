@@ -14,18 +14,21 @@ namespace appPROYECTO_DSW_I.Controllers
 {
     public class ProductoController : Controller
     {
+        /********************parte de jezrel****************/
         private readonly IConfiguration _Iconfig;
         public ProductoController(IConfiguration Iconfig)
         {
             _Iconfig = Iconfig;
         }
 
-        IEnumerable<ProductoModel> productos()
+
+        IEnumerable<ProductoModel> productoslistado()
         {
             List<ProductoModel> lista = new List<ProductoModel>();
             using (SqlConnection cn = new SqlConnection(_Iconfig["ConnectionStrings:cn"]))
             {
                 SqlCommand cmd = new SqlCommand("usp_ListarProductos", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
                 cn.Open();
                 SqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
@@ -35,18 +38,47 @@ namespace appPROYECTO_DSW_I.Controllers
                         idProducto = dr[0].ToString(),
                         nomProducto = dr[1].ToString(),
                         fechVencimiento = dr[2].ToString(),
-                        idProveedor = dr[3].ToString(),
+                        nomProveedor = dr[3].ToString(),
                         precio = decimal.Parse(dr[4].ToString()),
-                        stock = int.Parse(dr[0].ToString())
+                        stock = int.Parse(dr[5].ToString())
                     });
                 }
             }
             return lista;
         }
 
-        public async Task<ActionResult> ListadoProductos()
+
+        /*************/
+        public IEnumerable<ProductoModel> ProductoNombre(string nomproducto)
         {
-            return View(await Task.Run(() => productos()));
+            List<ProductoModel> lista = new List<ProductoModel>();
+            using (SqlConnection cn = new SqlConnection(_Iconfig["ConnectionStrings:cn"]))
+            {
+                SqlCommand cmd = new SqlCommand("exec usp_ProductoNombre @nomproducto", cn);
+                cmd.Parameters.AddWithValue("@nomproducto", nomproducto);
+                cn.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    lista.Add(new ProductoModel()
+                    {
+                        idProducto = dr.GetString(0),
+                        nomProducto = dr.GetString(1),
+                        fechVencimiento = dr.GetString(2),
+                        nomProveedor = dr.GetString(3),
+                        precio = decimal.Parse(dr[4].ToString()),
+                        stock = int.Parse(dr[5].ToString())
+                    });
+
+                }
+            }
+            return lista;
+        }
+
+        public async Task<IActionResult> listarProductoNombre(string nombre)
+        {
+            if (nombre == null) nombre = string.Empty;
+            return View(await Task.Run(() => ProductoNombre(nombre)));
         }
 
 
@@ -77,107 +109,107 @@ namespace appPROYECTO_DSW_I.Controllers
         //buscar producto
         ProductoModel BuscarProducto(String idproducto)
         {
-            ProductoModel reg = productos().Where(c => c.idProducto == idproducto).FirstOrDefault();
+            ProductoModel reg = productoslistado().Where(c => c.idProducto == idproducto).FirstOrDefault();
             return reg;
         }
 
 
 
 
-        /************************************ parte de Jezrel**********************************/
+        /************************************ parte de Iman**********************************/
 
-        //para registrar
-        public async Task<IActionResult> Create()
-        {
-            ViewBag.proveedor = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(await Task.Run(() => proveedor()), "idProveedor", "nomProveedor");
-            return View(new ProductoModel());
-        }
+        ////para registrar
+        //public async Task<IActionResult> Create()
+        //{
+        //    ViewBag.proveedor = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(await Task.Run(() => proveedor()), "idProveedor", "nomProveedor");
+        //    return View(new ProductoModel());
+        //}
 
-        [HttpPost]
-        public async Task<IActionResult> Create(ProductoModel reg)
-        {
-            if (!ModelState.IsValid)
-            {
-                ViewBag.proveedor = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(await Task.Run(() => proveedor()), "idProveedor", "nomProveedor");
-                return View(new ProductoModel());
-            }
-            string mensaje = string.Empty;
+        //[HttpPost]
+        //public async Task<IActionResult> Create(ProductoModel reg)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        ViewBag.proveedor = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(await Task.Run(() => proveedor()), "idProveedor", "nomProveedor");
+        //        return View(new ProductoModel());
+        //    }
+        //    string mensaje = string.Empty;
 
-            using (SqlConnection cn = new SqlConnection(_Iconfig["ConnectionStrings:cn"]))
-            {
-                try
-                {
-                    cn.Open();
-                    SqlCommand cmd = new SqlCommand("usp_Merge_InsertUpd", cn);
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@idproducto", reg.idProducto);
-                    cmd.Parameters.AddWithValue("@nomproducto", reg.nomProducto);
-                    cmd.Parameters.AddWithValue("@fechvencimiento", reg.fechVencimiento);
-                    cmd.Parameters.AddWithValue("@idproveedor", reg.idProveedor);
-                    cmd.Parameters.AddWithValue("@precio", reg.precio);
-                    cmd.Parameters.AddWithValue("@stock", reg.stock);
-                    int num = cmd.ExecuteNonQuery();
-                    mensaje = $"Se ha insertado {num} Producto(s)";
-                }
-                catch (SqlException ex)
-                {
-                    mensaje = ex.Message.ToString();
-                }
-                ViewBag.mensaje = mensaje;
-                ViewBag.proveedor = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(await Task.Run(() => proveedor()), "idProveedor", "nomProveedor", reg.idProveedor);
-                return View(reg);
-            }
-        }
+        //    using (SqlConnection cn = new SqlConnection(_Iconfig["ConnectionStrings:cn"]))
+        //    {
+        //        try
+        //        {
+        //            cn.Open();
+        //            SqlCommand cmd = new SqlCommand("usp_Merge_InsertUpd", cn);
+        //            cmd.CommandType = CommandType.StoredProcedure;
+        //            cmd.Parameters.AddWithValue("@idproducto", reg.idProducto);
+        //            cmd.Parameters.AddWithValue("@nomproducto", reg.nomProducto);
+        //            cmd.Parameters.AddWithValue("@fechvencimiento", reg.fechVencimiento);
+        //            cmd.Parameters.AddWithValue("@idproveedor", reg.idProveedor);
+        //            cmd.Parameters.AddWithValue("@precio", reg.precio);
+        //            cmd.Parameters.AddWithValue("@stock", reg.stock);
+        //            int num = cmd.ExecuteNonQuery();
+        //            mensaje = $"Se ha insertado {num} Producto(s)";
+        //        }
+        //        catch (SqlException ex)
+        //        {
+        //            mensaje = ex.Message.ToString();
+        //        }
+        //        ViewBag.mensaje = mensaje;
+        //        ViewBag.proveedor = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(await Task.Run(() => proveedor()), "idProveedor", "nomProveedor", reg.idProveedor);
+        //        return View(reg);
+        //    }
+        //}
 
-        //para actualizar
-        public async Task<IActionResult> Edit(string id)
-        {
-            ProductoModel reg = BuscarProducto(id);
-            if (reg == null)
-            {
-                RedirectToAction("ListadoProductos");
-            }
+        ////para actualizar
+        //public async Task<IActionResult> Edit(string id)
+        //{
+        //    ProductoModel reg = BuscarProducto(id);
+        //    if (reg == null)
+        //    {
+        //        RedirectToAction("ListadoProductos");
+        //    }
 
-            ViewBag.proveedor = new SelectList(await Task.Run(() => proveedor()), "idProveedor", "nomProveedor", reg.nomProducto);
-            return View(reg);
-        }
+        //    ViewBag.proveedor = new SelectList(await Task.Run(() => proveedor()), "idProveedor", "nomProveedor", reg.nomProducto);
+        //    return View(reg);
+        //}
 
 
-        [HttpPost]
-        public async Task<IActionResult> Edit(ProductoModel reg)
-        {
-            if (!ModelState.IsValid)
-            {
-                ViewBag.proveedor = new SelectList(await Task.Run(() => proveedor()), "idProveedor", "nomProveedor", reg.idProveedor);
-                return View(reg);
-            }
-            string mensaje = string.Empty;
+        //[HttpPost]
+        //public async Task<IActionResult> Edit(ProductoModel reg)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        ViewBag.proveedor = new SelectList(await Task.Run(() => proveedor()), "idProveedor", "nomProveedor", reg.idProveedor);
+        //        return View(reg);
+        //    }
+        //    string mensaje = string.Empty;
 
-            using (SqlConnection cn = new SqlConnection(_Iconfig["ConnectionStrings:cn"]))
-            {
-                try
-                {
-                    cn.Open();
-                    SqlCommand cmd = new SqlCommand("usp_Merge_InsertUpd", cn);
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@idproducto", reg.idProducto);
-                    cmd.Parameters.AddWithValue("@nomproducto", reg.nomProducto);
-                    cmd.Parameters.AddWithValue("@fechvencimiento", reg.fechVencimiento);
-                    cmd.Parameters.AddWithValue("@idproveedor", reg.idProveedor);
-                    cmd.Parameters.AddWithValue("@precio", reg.precio);
-                    cmd.Parameters.AddWithValue("@stock", reg.stock);
-                    int num = cmd.ExecuteNonQuery();
-                    mensaje = $"Se ha actualizado {num} Producto(s)";
-                }
-                catch (SqlException ex)
-                {
-                    mensaje = ex.Message.ToString();
-                }
-                ViewBag.mensaje = mensaje;
-                ViewBag.proveedor = new SelectList(await Task.Run(() => proveedor()), "idProveedor", "nomProveedor", reg.idProveedor);
-                return View(reg);
-            }
-        }
+        //    using (SqlConnection cn = new SqlConnection(_Iconfig["ConnectionStrings:cn"]))
+        //    {
+        //        try
+        //        {
+        //            cn.Open();
+        //            SqlCommand cmd = new SqlCommand("usp_Merge_InsertUpd", cn);
+        //            cmd.CommandType = CommandType.StoredProcedure;
+        //            cmd.Parameters.AddWithValue("@idproducto", reg.idProducto);
+        //            cmd.Parameters.AddWithValue("@nomproducto", reg.nomProducto);
+        //            cmd.Parameters.AddWithValue("@fechvencimiento", reg.fechVencimiento);
+        //            cmd.Parameters.AddWithValue("@idproveedor", reg.idProveedor);
+        //            cmd.Parameters.AddWithValue("@precio", reg.precio);
+        //            cmd.Parameters.AddWithValue("@stock", reg.stock);
+        //            int num = cmd.ExecuteNonQuery();
+        //            mensaje = $"Se ha actualizado {num} Producto(s)";
+        //        }
+        //        catch (SqlException ex)
+        //        {
+        //            mensaje = ex.Message.ToString();
+        //        }
+        //        ViewBag.mensaje = mensaje;
+        //        ViewBag.proveedor = new SelectList(await Task.Run(() => proveedor()), "idProveedor", "nomProveedor", reg.idProveedor);
+        //        return View(reg);
+        //    }
+        //}
 
 
         public IActionResult Index()

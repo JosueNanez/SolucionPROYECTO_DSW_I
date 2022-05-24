@@ -52,7 +52,7 @@ namespace appPROYECTO_DSW_I
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Usuario}/{action=CreateUser}/{id?}");
+                    pattern: "{controller=Producto}/{action=listarProductoNombre}/{id?}");
             });
         }
     }

@@ -17,7 +17,7 @@ namespace appPROYECTO_DSW_I.Models
         [Display(Name ="Fecha de Vencimiento")]
         public String fechVencimiento { get; set; }
         [Display(Name ="Proveedor")]
-        public String idProveedor { get; set; }
+        public String nomProveedor { get; set; }
         [Display(Name ="Precio")]
         public decimal precio { get; set; }
         [Display(Name ="Cantidad")]

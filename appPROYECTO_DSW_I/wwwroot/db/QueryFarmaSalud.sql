@@ -161,6 +161,23 @@ go
 exec usp_ListarProductos
 go
 
+--PROCEDIMIENTO PARA LISTAR PRODUCTOS POR NOMBRES
+create or alter proc usp_ProductoNombre
+@nomproducto varchar(30)
+as
+begin
+	select  p.idProducto, p.nomProducto,p.fechVencimiento,pr.nomProveedor,
+	p.precio,p.stock
+	from tb_productos p inner join
+	tb_proveedor pr on p.idProveedor=pr.idProveedor
+	where p.nomProducto like '%' + @nomproducto + '%'
+end
+go
+
+exec usp_ProductoNombre 'p'
+go
+
+
 --PROCEDIMIENTO PARA LISTAR PROVEEDORES
 create or alter proc usp_ListarProveedor
 as
