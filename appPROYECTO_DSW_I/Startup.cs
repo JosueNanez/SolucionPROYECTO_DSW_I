@@ -10,7 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using appPROYECTO_DSW_I.Models;
-//using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace appPROYECTO_DSW_I
 {
@@ -26,6 +26,13 @@ namespace appPROYECTO_DSW_I
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)  //Para Cookies
+            .AddCookie(option =>
+             {
+                option.LoginPath = "/Sesion/LoginCookie";
+                option.ExpireTimeSpan = TimeSpan.FromMinutes(10);
+                option.AccessDeniedPath = "/Home/Privacy";
+             });
             services.AddSingleton<IUsuario, UsuarioRepositorio>();
             services.AddControllersWithViews();
             services.AddSession();
@@ -51,7 +58,7 @@ namespace appPROYECTO_DSW_I
             app.UseRouting();
 
             app.UseSession();
-            //app.UseAuthentication();
+            app.UseAuthentication();
             app.UseAuthorization();
             
 
@@ -59,7 +66,7 @@ namespace appPROYECTO_DSW_I
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Sesion}/{action=LoginSesion}/{id?}");
+                    pattern: "{controller=Sesion}/{action=LoginCookie}/{id?}");
         });
         }
     }

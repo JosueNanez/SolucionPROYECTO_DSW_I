@@ -4,16 +4,18 @@
 <html>
 <head>
     <meta name="Viewport" content="width=device-width" />
-    <title>Inicio</title>
+    <title>Index</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-grid.min.css" />
 </head>
 
 <body>
     <div class="row mt-5">
         <div class="col-sm-4 offset-sm-4">
-            <form asp-controller="Home" asp-action="Index" method="post">
+            <h1>INICIO DE SESION</h1>
+            <form asp-controller="Sesion" asp-action="LoginCookie" method="post">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="mb-3">
-                    <label for="ejemplocorreo" class="col-form-label">Correo</label>
+                    <label for="ejemplocorreo" class="col-form-label">Email</label>
                     <input type="email" class="form-control" asp-for="correoUser" />
                 </div>
                 <div class="mb-3">
@@ -28,7 +30,5 @@
 </html>
 
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
-
-
 
 

@@ -10,6 +10,8 @@ using appPROYECTO_DSW_I.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
+using Microsoft.AspNetCore.Authorization;
+
 namespace appPROYECTO_DSW_I.Controllers
 {
 
@@ -23,6 +25,7 @@ namespace appPROYECTO_DSW_I.Controllers
         }
 
 
+        [Authorize(Roles ="1, 2")]
         public async Task<IActionResult> ProductoListado()
         {
             return View(await Task.Run(() => productoslistado()));
@@ -56,6 +59,7 @@ namespace appPROYECTO_DSW_I.Controllers
 
         /*************/
 
+        [Authorize(Roles = "1, 2")]
         public async Task<IActionResult> listarProductoNombre(string nombre)
         {
             if (nombre == null) nombre = string.Empty;
@@ -120,6 +124,7 @@ namespace appPROYECTO_DSW_I.Controllers
         /************************************ parte de Iman **********************************/
 
         //para CREAR Y ACTUALIZAR PRODUCTOS
+        [Authorize(Roles = "1")]
         public async Task<IActionResult> Create()
         {
             ViewBag.proveedor = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(await Task.Run(() => proveedor()), "idProveedor", "nomProveedor");

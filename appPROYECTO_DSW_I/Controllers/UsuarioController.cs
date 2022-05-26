@@ -9,7 +9,7 @@ using appPROYECTO_DSW_I.Models;
 using System.Data;
 using System.Data.SqlClient;
 
-//using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 
 namespace appPROYECTO_DSW_I.Controllers
 {
@@ -22,6 +22,7 @@ namespace appPROYECTO_DSW_I.Controllers
 			UsuarioProceso = new UsuarioRepositorio();
 		}
 
+		[Authorize(Roles ="1, 2")]
 		public async Task<IActionResult> CreateUser()
 		{
 			ViewBag.LISTCBO = new SelectList(await Task.Run(() => UsuarioProceso.ListTipoUser()), "idTipo", "descTipo");
