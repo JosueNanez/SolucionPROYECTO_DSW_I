@@ -121,6 +121,7 @@ namespace appPROYECTO_DSW_I.Controllers
 
 
 
+
         /************************************ parte de Iman **********************************/
 
         //para CREAR Y ACTUALIZAR PRODUCTOS
@@ -170,21 +171,24 @@ namespace appPROYECTO_DSW_I.Controllers
 
 
         //para actualizar
+        [Authorize(Roles = "1")]
         ProductoModel BuscarProducto(String idproducto)
         {
             ProductoModel reg = productoslistado().Where(c => c.idProducto == idproducto).FirstOrDefault();
             return reg;
         }
 
+
+
         public async Task<IActionResult> Edit(string id)
         {
             ProductoModel reg = BuscarProducto(id);
             if (reg == null)
             {
-                RedirectToAction("ListadoProductos");
+                RedirectToAction("listarProductoNombre");   
             }
 
-            ViewBag.proveedor = new SelectList(await Task.Run(() => proveedor()), "idProveedor", "nomProveedor", reg.nomProducto);
+            ViewBag.proveedor = new SelectList(await Task.Run(() => proveedor()), "idProveedor", "nomProveedor", reg.nomProveedor);
             return View(reg);
         }
         [HttpPost]

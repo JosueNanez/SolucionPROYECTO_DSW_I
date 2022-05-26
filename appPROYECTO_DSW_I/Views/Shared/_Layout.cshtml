@@ -23,23 +23,10 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-
-                        @if(User.IsInRole("1") || User.IsInRole("2")) 
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Producto" asp-action="ProductoListado">Listado Productos</a>
-                            </li>
-                        }
                         @if(User.IsInRole("1") || User.IsInRole("2"))   
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Producto" asp-action="listarProductoNombre">Productos por Nombre</a>
-                            </li>
-                        }
-                        @if(User.IsInRole("1")) 
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Producto" asp-action="Create">Nuevo Producto</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Producto" asp-action="listarProductoNombre">Productos</a>
                             </li>
                         }
 
