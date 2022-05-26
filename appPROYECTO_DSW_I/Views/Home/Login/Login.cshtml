@@ -1,0 +1,37 @@
+@model appGrupoServiciosADO.NET.Models.Usuario
+<!Doctype html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap-grip.min.css" rel="stylesheet" />
+
+    <body>
+        <div class="row mt-5">
+            <div class="col.sm.4 offset-sm-4">
+                <form form-controller ="Acceso" asp-action="Index" method="post">
+                    <div class="mb-3">
+                        <label for="ejemplocorreo" class="col-form-label">Email</label>
+                        <input type="email" class="form-control" asp-for="CorreoUsuario" />
+
+                    </div>
+                    <div class="mb-3">
+                        <label for="ejemploclave" class="col-form-label">Contraseña</label>
+                        <input type="password" class="form-control" asp-for="ClaveUsuario"/>
+
+                    </div>
+                    <button type="submit" class="btn-primary">Ingresar</button>
+
+                </form>
+
+
+            </div>
+
+
+        </div>
+    </body>
+</head>
+<body>
+</body>
+</html>
