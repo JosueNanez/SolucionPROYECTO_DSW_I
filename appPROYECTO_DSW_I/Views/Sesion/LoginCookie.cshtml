@@ -12,6 +12,10 @@
     #error{
         padding:10px 20px;
     }
+    #boton{
+        margin-top: 30px;
+        width: 100%;
+    }
 </style>
 <html>
 <head>
@@ -34,7 +38,8 @@
                     <label for="ejemploclave" class="col-form-label">Contraseña:</label>
                     <input type="password" class="form-control" asp-for="claveUser" />
                 </div>
-                <button type="submit" class="btn btn-primary">Ingresar</button>
+
+                <button id="boton" type="submit" class="btn btn-primary">Ingresar</button>
                 <div id="error">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 </div>

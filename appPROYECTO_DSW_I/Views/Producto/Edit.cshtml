@@ -4,13 +4,21 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Editar</h1>
+<style>
+    #from{
+        display: block;
+        margin: auto;
+    }
 
-<h4>Producto</h4>
+
+
+</style>
+
+<h4>Actualizar Producto</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" id="from">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="idProducto" class="control-label"></label>
