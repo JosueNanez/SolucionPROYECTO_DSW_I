@@ -1,4 +1,4 @@
-﻿@using Microsoft.AspNetCore.Identity
+﻿@*@using Microsoft.AspNetCore.Identity*@
 
 <!DOCTYPE html>
 <html lang="en">
@@ -24,25 +24,35 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
 
-                        @if (User.IsinRole("Administrador") || User.IsInRole("Supervisor")){
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Producto" asp-action="listarProductoNombre">Producto</a>
-                    </li>
-                        }
+                        @*@if(User.IsInRole("1") || User.IsInRole("2")) 
+                        {*@
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Producto" asp-action="ProductoListado">Listado Productos</a>
+                            </li>
+                        @*}
+                        @if(User.IsInRole("1") || User.IsInRole("2"))   
+                        {*@
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Producto" asp-action="listarProductoNombre">Productos por Nombre</a>
+                            </li>
+                        @*}
+                        @if(User.IsInRole("1")) 
+                        {*@
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Producto" asp-action="Create">Nuevo Producto</a>
+                            </li>
+                        @*}
 
-                        @if (User.IsinRole("Administrador") || User.IsInRole("Supervisor") || User.IsInRole("Empleado")){
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="CreateUser">Crear Usuarios</a>
-                    </li>
-                            }
+                        @if(User.IsInRole("1"))
+                        {*@
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="CreateUser">Nuevo Usuario</a>
+                            </li>
+                        @*}*@
 
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Acceso" asp-action="Salir">Salir</a>
-                    </li>
-
-
-
-
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Sesion" asp-action="Salir">Salir</a>
+                        </li>
 
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>

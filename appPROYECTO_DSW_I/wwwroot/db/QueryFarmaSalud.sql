@@ -102,6 +102,9 @@ insert into tb_usuarios values('C003','Erick Chavez','erick03@hotmail.com','eric
 insert into tb_usuarios values('C004','Gonzalo Cachuy','gonzalo04@hotmail.com','gonzalo04','orge Basadre 498','2')
 insert into tb_usuarios values('C005','Brenda Vargas','brenda05@hotmail.com','brenda05','Calle Los Pinos,','2')
 
+insert into tb_usuarios values('C006','Brenda Vargas','brenda05@gmail.com','brenda05','Calle Los Pinos,','1')
+insert into tb_usuarios values('C007','Carlos Vargas','carlos01@gmail.com','carlos01','Calle Los Pinos,','2')
+
 --orden de pedido
 insert into tb_ordenPedido values('C001','Albert Tello','P003',15.2,60,'15/05/2022')
 insert into tb_ordenPedido values('C003','Erick Chavez','P006',48.5,80,'15/05/2022')
@@ -207,3 +210,16 @@ begin
 		source.stock);
 end
 go
+
+-----------------------------------------------------------------
+----USP PARA VALIDAR LOGIN 
+
+CREATE or ALTER PROC usp_seg_UserSesion
+@correo_Usuario varchar(40),
+@contra varchar(20)
+AS
+BEGIN
+	Select nom_Usuario, correo_Usuario, contra, id_tipo from tb_usuarios
+	Where correo_Usuario = @correo_Usuario And contra=@contra
+END
+GO

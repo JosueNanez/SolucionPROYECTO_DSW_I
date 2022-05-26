@@ -6,12 +6,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authentication.Cookies;
 
-namespace appPROYECTO_DSW_I.Controllers
+namespace appSemana07Session.Controllers
 {
-    //[Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -22,17 +19,6 @@ namespace appPROYECTO_DSW_I.Controllers
         }
 
         public IActionResult Index()
-        {
-            return View();
-        }
-
-        [Authorize (Roles ="Administrador,Supervisor,Empleado")]
-        public IActionResult CreateUser()
-        {
-            return View();
-        }
-        [Authorize (Roles ="Administrador, Supervisor")]
-        public IActionResult listarProductoNombre()
         {
             return View();
         }

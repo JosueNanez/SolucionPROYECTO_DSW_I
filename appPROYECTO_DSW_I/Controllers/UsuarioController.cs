@@ -4,20 +4,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using Microsoft.AspNetCore.Mvc.Rendering;
 using appPROYECTO_DSW_I.Models;
 using System.Data;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Data.SqlClient;
+
+//using Microsoft.AspNetCore.Authorization;
 
 namespace appPROYECTO_DSW_I.Controllers
 {
-    public class UsuarioController : Controller
-    {
-        private IUsuario UsuarioProceso;
-        public UsuarioController()
-        {
-            UsuarioProceso = new UsuarioRepositorio();
-        }
 
+	public class UsuarioController : Controller
+	{
+		private IUsuario UsuarioProceso;
+		public UsuarioController()
+		{
+			UsuarioProceso = new UsuarioRepositorio();
+		}
 
 		public async Task<IActionResult> CreateUser()
 		{
@@ -36,9 +39,9 @@ namespace appPROYECTO_DSW_I.Controllers
 			ViewBag.LISTCBO = new SelectList(await Task.Run(() => UsuarioProceso.ListTipoUser()), "idTipo", "descTipo", reg.idTipo);
 			return View(reg);
 		}
-		
 
-		public IActionResult Index()
+
+        public IActionResult Index()
         {
             return View();
         }

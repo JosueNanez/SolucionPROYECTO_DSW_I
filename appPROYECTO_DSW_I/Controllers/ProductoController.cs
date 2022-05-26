@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace appPROYECTO_DSW_I.Controllers
 {
+
     public class ProductoController : Controller
     {
         /********************parte de jezrel****************/
@@ -22,7 +23,11 @@ namespace appPROYECTO_DSW_I.Controllers
         }
 
 
-        IEnumerable<ProductoModel> productoslistado()
+        public async Task<IActionResult> ProductoListado()
+        {
+            return View(await Task.Run(() => productoslistado()));
+        }
+        public IEnumerable<ProductoModel> productoslistado()
         {
             List<ProductoModel> lista = new List<ProductoModel>();
             using (SqlConnection cn = new SqlConnection(_Iconfig["ConnectionStrings:cn"]))
@@ -43,12 +48,19 @@ namespace appPROYECTO_DSW_I.Controllers
                         stock = int.Parse(dr[5].ToString())
                     });
                 }
+                cn.Close();
             }
             return lista;
         }
 
 
         /*************/
+
+        public async Task<IActionResult> listarProductoNombre(string nombre)
+        {
+            if (nombre == null) nombre = string.Empty;
+            return View(await Task.Run(() => ProductoNombre(nombre)));
+        }
         public IEnumerable<ProductoModel> ProductoNombre(string nomproducto)
         {
             List<ProductoModel> lista = new List<ProductoModel>();
@@ -75,11 +87,7 @@ namespace appPROYECTO_DSW_I.Controllers
             return lista;
         }
 
-        public async Task<IActionResult> listarProductoNombre(string nombre)
-        {
-            if (nombre == null) nombre = string.Empty;
-            return View(await Task.Run(() => ProductoNombre(nombre)));
-        }
+
 
 
 
@@ -106,19 +114,12 @@ namespace appPROYECTO_DSW_I.Controllers
             }
             return lstProveedor;
         }
-        //buscar producto
-        ProductoModel BuscarProducto(String idproducto)
-        {
-            ProductoModel reg = productoslistado().Where(c => c.idProducto == idproducto).FirstOrDefault();
-            return reg;
-        }
 
 
 
+        /************************************ parte de Iman **********************************/
 
-        /************************************ parte de Iman**********************************/
-
-        //para registrar
+        //para CREAR Y ACTUALIZAR PRODUCTOS
         public async Task<IActionResult> Create()
         {
             ViewBag.proveedor = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(await Task.Run(() => proveedor()), "idProveedor", "nomProveedor");
@@ -161,7 +162,15 @@ namespace appPROYECTO_DSW_I.Controllers
             }
         }
 
+
+
         //para actualizar
+        ProductoModel BuscarProducto(String idproducto)
+        {
+            ProductoModel reg = productoslistado().Where(c => c.idProducto == idproducto).FirstOrDefault();
+            return reg;
+        }
+
         public async Task<IActionResult> Edit(string id)
         {
             ProductoModel reg = BuscarProducto(id);
@@ -173,8 +182,6 @@ namespace appPROYECTO_DSW_I.Controllers
             ViewBag.proveedor = new SelectList(await Task.Run(() => proveedor()), "idProveedor", "nomProveedor", reg.nomProducto);
             return View(reg);
         }
-
-
         [HttpPost]
         public async Task<IActionResult> Edit(ProductoModel reg)
         {

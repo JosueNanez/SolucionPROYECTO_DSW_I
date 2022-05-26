@@ -1,0 +1,34 @@
+﻿@model appPROYECTO_DSW_I.Models.UsuarioModel
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="Viewport" content="width=device-width" />
+    <title>Inicio</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-grid.min.css" />
+</head>
+
+<body>
+    <div class="row mt-5">
+        <div class="col-sm-4 offset-sm-4">
+            <form asp-controller="Home" asp-action="Index" method="post">
+                <div class="mb-3">
+                    <label for="ejemplocorreo" class="col-form-label">Correo</label>
+                    <input type="email" class="form-control" asp-for="correoUser" />
+                </div>
+                <div class="mb-3">
+                    <label for="ejemploclave" class="col-form-label">Contraseña</label>
+                    <input type="password" class="form-control" asp-for="claveUser" />
+                </div>
+                <button type="submit" class="btn-primary">Ingresar</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+
+
+
+

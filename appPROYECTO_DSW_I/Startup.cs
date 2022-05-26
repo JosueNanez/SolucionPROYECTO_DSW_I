@@ -8,8 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 using appPROYECTO_DSW_I.Models;
-using Microsoft.AspNetCore.Authentication.Cookies;
+//using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace appPROYECTO_DSW_I
 {
@@ -27,12 +28,8 @@ namespace appPROYECTO_DSW_I
         {
             services.AddSingleton<IUsuario, UsuarioRepositorio>();
             services.AddControllersWithViews();
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(option =>{
-                    option.LoginPath = "/Acceso/Index";
-                    option.ExpireTimeSpan = TimeSpan.FromMinutes(5);
-                    option.AccessDeniedPath = "/Home/Privacy";
-                });
+            services.AddSession();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,15 +50,17 @@ namespace appPROYECTO_DSW_I
 
             app.UseRouting();
 
+            app.UseSession();
+            //app.UseAuthentication();
             app.UseAuthorization();
+            
 
-            app.UseAuthentication();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Acceso}/{action=Index}/{id?}");
-            });
+                    pattern: "{controller=Sesion}/{action=LoginSesion}/{id?}");
+        });
         }
     }
 }
