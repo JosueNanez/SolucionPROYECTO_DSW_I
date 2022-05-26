@@ -1,0 +1,58 @@
+﻿@model appPROYECTO_DSW_I.Models.ProductoModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Editar</h1>
+
+<h4>Producto</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="idProducto" class="control-label"></label>
+                <input asp-for="idProducto" class="form-control" />
+                <span asp-validation-for="idProducto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="nomProducto" class="control-label"></label>
+                <input asp-for="nomProducto" class="form-control" />
+                <span asp-validation-for="nomProducto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="fechVencimiento" class="control-label"></label>
+                <input asp-for="fechVencimiento" class="form-control" />
+                <span asp-validation-for="fechVencimiento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="nomProveedor" class="control-label"></label>
+                <input asp-for="nomProveedor" class="form-control" />
+                <span asp-validation-for="nomProveedor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="precio" class="control-label"></label>
+                <input asp-for="precio" class="form-control" />
+                <span asp-validation-for="precio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="stock" class="control-label"></label>
+                <input asp-for="stock" class="form-control" />
+                <span asp-validation-for="stock" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Actualizar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="listarProductoNombre" type="submit" class="btn btn-success">Retornar</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
