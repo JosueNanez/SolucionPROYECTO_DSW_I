@@ -7,6 +7,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore-Authentication.Cookies;
 using Microsoft.AspNetCore-Authentication;
+using appPROYECTO_DSW_I.DataLogica;
+using appPROYECTO_DSW_I.Models;
 
 namespace appPROYECTO_DSW_I.Controllers
 {
@@ -47,7 +49,7 @@ namespace appPROYECTO_DSW_I.Controllers
             }
             else { return View(); }
 
-            public async IActionResult Salir()
+            public async Task<IActionResult> Salir()
             {
 
                 await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);

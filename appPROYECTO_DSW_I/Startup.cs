@@ -27,6 +27,12 @@ namespace appPROYECTO_DSW_I
         {
             services.AddSingleton<IUsuario, UsuarioRepositorio>();
             services.AddControllersWithViews();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(option =>{
+                    option.LoginPath = "/Acceso/Index";
+                    option.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+                    option.AccessDeniedPath = "/Home/Privacy";
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,11 +55,12 @@ namespace appPROYECTO_DSW_I
 
             app.UseAuthorization();
 
+            app.UseAuthentication();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Producto}/{action=listarProductoNombre}/{id?}");
+                    pattern: "{controller=Acceso}/{action=Index}/{id?}");
             });
         }
     }
