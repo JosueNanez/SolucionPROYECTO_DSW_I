@@ -22,6 +22,7 @@ namespace appPROYECTO_DSW_I.Controllers
 			UsuarioProceso = new UsuarioRepositorio();
 		}
 
+		///---------------------------------------NUEVO USUARIO (ADMINISTRADOR O CLIENTE)
 		//[Authorize(Roles = "1,2")]
 		public async Task<IActionResult> CreateUser()
 		{
@@ -42,7 +43,24 @@ namespace appPROYECTO_DSW_I.Controllers
 		}
 
 
-        public IActionResult Index()
+		///---------------------------------------NUEVO USUARIO (SOLO CLIENTE)
+		public IActionResult CreateCliente()
+		{
+			return View(new UsuarioModel());
+		}
+		[HttpPost]
+		public IActionResult CreateCliente(UsuarioModel reg)
+		{
+			if (!ModelState.IsValid)
+			{
+				return View(reg);
+			}
+			ViewBag.mensaje = UsuarioProceso.NuevoCliente(reg);
+			return View(reg);
+		}
+		///------------------------------------------------------------------
+
+		public IActionResult Index()
         {
             return View();
         }

@@ -12,5 +12,7 @@ namespace appPROYECTO_DSW_I.Models
         IEnumerable<TipoUserModel> ListTipoUser();
         string AgregarUsuario(UsuarioModel reg);
 
+        string NuevoCliente(UsuarioModel reg);
+
     }
 }
