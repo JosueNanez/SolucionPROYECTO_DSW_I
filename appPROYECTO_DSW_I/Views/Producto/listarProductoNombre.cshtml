@@ -10,20 +10,20 @@
 
     @using (Html.BeginForm())
     {
-    <div>
-        <p>Ingrese Nombre del producto:</p>
-        @Html.TextBox("nombre", "")
-        <button class="btn btn-warning">Buscar</button>
-    </div>
-            }
-        
-        @if (User.IsInRole("1"))
-        {
-            <p>
-                <a asp-action="Create" type="submit" class="btn btn-success">Nuevo producto </a>
-            </p>
-        }
-    </div>
+        <div>
+            <p>Ingrese Nombre del producto:</p>
+            @Html.TextBox("nombre", "")
+            <button class="btn btn-warning">Buscar</button>
+        </div>
+    }
+
+    @if (User.IsInRole("1"))
+    {
+        <p>
+            <a asp-action="Create" type="submit" class="btn btn-success">Nuevo producto </a>
+        </p>
+    }
+</div>
 <table class="table">
     <thead>
         <tr>
@@ -74,7 +74,7 @@
                 {
                     <td>
                         @Html.ActionLink("Actualizar", "Edit", new { id = item.idProducto })
-                        
+
                         @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                             @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
                     </td>
@@ -83,3 +83,7 @@
         }
     </tbody>
 </table>
+<div style="margin-top:20px;">
+    <a class="btn btn-secondary" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
+</div>
+
