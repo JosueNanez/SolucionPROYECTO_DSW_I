@@ -10,66 +10,89 @@
     <title>@ViewData["Title"] - appPROYECTO_DSW_I</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    
+
     <style>
+
+        .ul {
+            padding: 10px 0 15px 0;
+        }
 
         .nav-item {
             display: block;
             margin: 5px 10px;
-            padding: 5px 8px;
-            border-radius: 2px;
+            padding: 3px 8px;
             transition: all 0.4s;
         }
 
-        .nav-item:hover{
-            background-color: #28a745;
-           
-        }
-        .nav-link:hover {
-            color: white;
+        .a {
+            font-size: 15px;
+            color: #004aad;
+            cursor: pointer;
+            margin: 0 5px;
+            position: relative;
+            padding-bottom: 5px;
         }
 
+            .a:before {
+                content: "";
+                display: block;
+                width: 0;
+                height: 2px;
+                background: #229954;
+                left: 50%;
+                bottom: 0;
+                position: absolute;
+                transition: all 0.3s;
+            }
+
+            .a:hover:before {
+                width: 100%;
+                left: 0;
+            }
     </style>
 </head>
 
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">appPROYECTO_DSW_I</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">FarmaSalud</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        @if(User.IsInRole("1") || User.IsInRole("2"))   
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Producto" asp-action="listarProductoNombre">Productos</a>
-                            </li>
-                        }
+                @if (User.IsInRole("0"))
+                {
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
 
-                        @if(User.IsInRole("1") || User.IsInRole("2"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="CreateUser">Nuevo Usuario</a>
-                            </li>
-                        }
+                        <ul class="navbar-nav flex-grow-1 ul">
+                            <a class="nav-link text-dark a" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
 
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Sesion" asp-action="Salir">Salir</a>
-                        </li>
+                            @if (User.IsInRole("1") || User.IsInRole("2"))
+                            {
+                                <a class="nav-link text-dark a" asp-area="" asp-controller="Producto" asp-action="listarProductoNombre">Productos</a>
+                            }
 
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
+
+
+                            @if (User.IsInRole("1") )
+                            {
+                                <a class="nav-link text-dark a" asp-area="" asp-controller="Usuario" asp-action="CreateUser">Nuevo Usuario</a>
+                            }
+
+
+                            <a class="nav-link text-dark a" asp-area="" asp-controller="Sesion" asp-action="Salir">Salir</a>
+
+
+                            @*<li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    </li>*@
+                        </ul>
+                    </div>
+                }
             </div>
+            
         </nav>
     </header>
     <div class="container">

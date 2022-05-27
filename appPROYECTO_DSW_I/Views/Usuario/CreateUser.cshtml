@@ -4,11 +4,11 @@
     ViewData["Title"] = "CreateUser";
 }
 
-<h1>CREAR USUARIO</h1>
+<h1 class="text-center">Nuevo Usuario</h1>
 
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4" style="width:40%;margin:auto;">
         <form asp-action="CreateUser">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -36,21 +36,26 @@
                 <input asp-for="direcUser" class="form-control" />
                 <span asp-validation-for="direcUser" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="idTipo" class="control-label"></label>
-                <select asp-for="idTipo" asp-items="@ViewBag.LISTCBO" class="form-control"></select>
-                <span asp-validation-for="idTipo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <a asp-action="CreateUser" asp-controller="Usuario" class="btn btn-primary">Nuevo</a>
-                <input type="submit" value="Guardar" class="btn btn-primary" />
-            </div>
+            @if (User.IsInRole("1"))
+            {
+                <div class="form-group">
+                    <label asp-for="idTipo" class="control-label"></label>
+                    <select asp-for="idTipo" asp-items="@ViewBag.LISTCBO" class="form-control">
+                        <option value="0">Seleccionar</option>
+                    </select>
+                    <span asp-validation-for="idTipo" class="text-danger"></span>
+                </div>
+            }
+        <div class="form-group" style="display:flex;">
+            <a asp-action="CreateUser" asp-controller="Usuario" class="btn btn-primary" style="margin-right:10px;">Nuevo</a>
+            <input type="submit" value="Guardar" class="btn btn-primary" style="margin-right:10px;" />
+        </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-primary" asp-area="" asp-controller="Sesion" asp-action="LoginCookie">Salir</a>
 </div>
 
 <div>@ViewBag.mensaje</div>

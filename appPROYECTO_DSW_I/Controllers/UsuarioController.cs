@@ -22,7 +22,7 @@ namespace appPROYECTO_DSW_I.Controllers
 			UsuarioProceso = new UsuarioRepositorio();
 		}
 
-		[Authorize(Roles ="1, 2")]
+		//[Authorize(Roles = "1,2")]
 		public async Task<IActionResult> CreateUser()
 		{
 			ViewBag.LISTCBO = new SelectList(await Task.Run(() => UsuarioProceso.ListTipoUser()), "idTipo", "descTipo");

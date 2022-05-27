@@ -48,11 +48,10 @@ nom_Usuario varchar(40) not null,
 correo_Usuario varchar(40) not null,
 contra varchar(20) not null,
 dirUsuario varchar(50) not null,
-id_tipo char(1) not null         /*adm y cli */
+id_tipo char(1) not null default('2')        /*adm y cli */
 foreign key (id_tipo) references tb_tipoUsuario (id_tipo)
 )
 go
-
 
 create table tb_ordenPedido
 (
@@ -104,6 +103,7 @@ insert into tb_usuarios values('C005','Brenda Vargas','brenda05@hotmail.com','br
 
 insert into tb_usuarios values('C006','Brenda Vargas','brenda05@gmail.com','brenda05','Calle Los Pinos,','1')
 insert into tb_usuarios values('C007','Carlos Vargas','carlos01@gmail.com','carlos01','Calle Los Pinos,','2')
+insert into tb_usuarios values('K007','Carlos Vegas','carlos01@gmail.com','carlos01','Calle Los Pinos,',default)
 
 --orden de pedido
 insert into tb_ordenPedido values('C001','Albert Tello','P003',15.2,60,'15/05/2022')

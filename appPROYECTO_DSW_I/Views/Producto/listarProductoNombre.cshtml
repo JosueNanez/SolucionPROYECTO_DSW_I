@@ -4,19 +4,26 @@
     ViewData["Title"] = "listarProductoNombre";
 }
 
-<h1>Producto Nombre</h1>
+<h1 class="text-center">Productos</h1>
 
-@using (Html.BeginForm())
-{
-    <em>Ingrese Nombre del producto:</em>
-    @Html.TextBox("nombre", "")
-    <button class="btn-warning">Buscar Productos</button>
-}
+<div style="display:flex;width:100%;justify-content:space-between;margin-bottom:20px;">
 
-<p>
-    <a asp-action="Create" type="submit" class="btn btn-success">Crear producto </a>
-
-</p>
+    @using (Html.BeginForm())
+    {
+    <div>
+        <p>Ingrese Nombre del producto:</p>
+        @Html.TextBox("nombre", "")
+        <button class="btn btn-warning">Buscar</button>
+    </div>
+            }
+        
+        @if (User.IsInRole("1"))
+        {
+            <p>
+                <a asp-action="Create" type="submit" class="btn btn-success">Nuevo producto </a>
+            </p>
+        }
+    </div>
 <table class="table">
     <thead>
         <tr>
@@ -63,11 +70,15 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.stock)
                 </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id=item.idProducto }) |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                </td>
+                @if (User.IsInRole("1"))
+                {
+                    <td>
+                        @Html.ActionLink("Actualizar", "Edit", new { id = item.idProducto })
+                        
+                        @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                    </td>
+                }
             </tr>
         }
     </tbody>
