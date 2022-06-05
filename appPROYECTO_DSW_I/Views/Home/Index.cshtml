@@ -20,29 +20,36 @@
 </style>
 
 <div class="text-center">
-    <h1 class="display-4">Bienvenidos a FarmaSalud</h1>
+    <h1 class="display-4">Bienvenido a FarmaSalud</h1>
+    <br />
+    <h3><strong>@User.Identity.Name</strong></h3>
     @*<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>*@
-    <ul class="cont">
-        <a class="nav-link text-dark aa" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+<ul class="cont">
+    <a class="nav-link text-dark aa" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
 
-        @if (User.IsInRole("1") || User.IsInRole("2"))
-        {
-            <a class="nav-link text-dark aa" asp-area="" asp-controller="Producto" asp-action="listarProductoNombre">Productos</a>
-        }
-
-
-
-        @if (User.IsInRole("1"))
-        {
-            <a class="nav-link text-dark aa" asp-area="" asp-controller="Usuario" asp-action="CreateUser">Nuevo Usuario</a>
-        }
+    @if (User.IsInRole("1") || User.IsInRole("2"))
+    {
+        <a class="nav-link text-dark aa" asp-area="" asp-controller="Producto" asp-action="listarProductoNombre">Productos</a>
+    }
 
 
-        <a class="nav-link text-dark aa" asp-area="" asp-controller="Sesion" asp-action="Salir">Salir</a>
+
+    @if (User.IsInRole("1"))
+    {
+        <a class="nav-link text-dark aa" asp-area="" asp-controller="Usuario" asp-action="CreateUser">Nuevo Usuario</a>
+    }
+
+    @if (User.IsInRole("1") || User.IsInRole("2"))
+    {
+        <a class="nav-link text-dark aa" asp-area="" asp-controller="Carrito" asp-action="Catalogo">Catalogo</a>
+    }
 
 
-        @*<li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-            </li>*@
-    </ul>
+    <a class="nav-link text-dark aa" asp-area="" asp-controller="Sesion" asp-action="Salir">Salir</a>
+
+
+    @*<li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </li>*@
+</ul>
 </div>

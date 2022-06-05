@@ -10,18 +10,20 @@ namespace appPROYECTO_DSW_I.Models
 {
     public class ProductoModel
     {
-        [Display(Name ="Código")]
+        [Display(Name = "Código")]
         public string idProducto { get; set; }
-        [Display(Name ="Producto")]
+        [Display(Name = "Producto")]
         public string nomProducto { get; set; }
-        [Display(Name ="Fecha de Vencimiento")]
+        [Display(Name = "Fecha de Vencimiento")]
         public String fechVencimiento { get; set; }
-        [Display(Name ="Proveedor")]
+        [Display(Name = "Proveedor")]
         public String nomProveedor { get; set; }
-        [Display(Name ="Precio")]
+        [Display(Name = "Precio")]
         public decimal precio { get; set; }
-        [Display(Name ="Cantidad")]
+        [Display(Name = "Cantidad")]
         public int stock { get; set; }
+        [Display(Name ="Foto")]
+        public string ruta { set { string.Format("~/img/Medicamentos/{0}.jpg", idProducto); } }
 
     }
 }

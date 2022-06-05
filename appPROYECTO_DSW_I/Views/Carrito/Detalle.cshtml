@@ -1,0 +1,89 @@
+﻿@model appPROYECTO_DSW_I.Models.ProductoModel
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Detalle</title>
+</head>
+<body>
+
+    <div>
+        <br /><br />
+        <h4>DETALLE DEL PRODUCTO</h4>
+
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td>
+                        <br />
+                        <dl class="row">
+
+                            <dt class="col-sm-3">
+                                CODIGO :
+                            </dt>
+                            <dd class="col-sm-7">
+                                @Html.DisplayFor(model => model.idProducto)
+                            </dd>
+                            <dt class="col-sm-3">
+                                NOMBRE :
+                            </dt>
+                            <dd class="col-sm-7">
+                                @Html.DisplayFor(model => model.nomProducto)
+                            </dd>
+                            <dt class="col-sm-3">
+                                VENCIMIENTO :
+                            </dt>
+                            <dd class="col-sm-7">
+                                @Html.DisplayFor(model => model.fechVencimiento)
+                            </dd>
+                            <dt class="col-sm-3">
+                                PROVEEDOR :
+                            </dt>
+                            <dd class="col-sm-7">
+                                @Html.DisplayFor(model => model.nomProveedor)
+                            </dd>
+                            <dt class="col-sm-3">
+                                PRECIO : S/.
+                            </dt>
+                            <dd class="col-sm-7">
+                                @Html.DisplayFor(model => model.precio)
+                            </dd>
+                            <dt class="col-sm-3">
+                                STOCK :
+                            </dt>
+                            <dd class="col-sm-7">
+                                @Html.DisplayFor(model => model.stock)
+                            </dd>
+                        </dl>
+                        <div>
+                            @using (Html.BeginForm())
+                            {
+                                @Html.Hidden("codigo", Model.idProducto)<!--Valor Oculto-->
+                                <strong>Ingrese la Cantidad</strong>
+                                @Html.TextBox("cantidad", 1)
+                                <input type="submit" value="Agregar" class="btn btn-primary" />
+                                <a asp-action="Canasta" asp-controller="Carrito" class="btn btn-primary">Carrito de Compras</a>
+                            }
+                        </div>
+                        <strong style="color:forestgreen">@ViewBag.mensaje</strong>
+                        <br /><br />
+                        <div>
+                            <a asp-action="Catalogo" asp-controller="Carrito" class="btn btn-primary">Seguir Comprando</a>
+                        </div>
+                    </td>
+                    <td>
+                        <dl class="row">
+                            <dd>
+                                <img src="@Url.Content(string.Format("~/img/Medicamentos/{0}.jpg", Model.idProducto))" style="width: 400px; height: 370px; " />
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <hr /><br />
+
+</body>
+</html>
