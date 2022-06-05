@@ -26,6 +26,8 @@ namespace appPROYECTO_DSW_I
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSession();
+
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)  //Para Cookies
             .AddCookie(option =>
              {
@@ -35,7 +37,7 @@ namespace appPROYECTO_DSW_I
              });
             services.AddSingleton<IUsuario, UsuarioRepositorio>();
             services.AddControllersWithViews();
-            services.AddSession();
+            
 
         }
 
@@ -52,15 +54,15 @@ namespace appPROYECTO_DSW_I
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseSession();
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
 
-            app.UseSession();
             app.UseAuthentication();
             app.UseAuthorization();
-            
 
             app.UseEndpoints(endpoints =>
             {

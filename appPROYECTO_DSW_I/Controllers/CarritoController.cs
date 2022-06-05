@@ -23,7 +23,7 @@ namespace appPROYECTO_DSW_I.Controllers
             _config = Iconfig;
         }
 
-        //-----------------PARA EL CATALOGO
+//---------------------------PARA EL CATALOGO
         public async Task<IActionResult> Catalogo()
         {
             if (HttpContext.Session.GetString("Canasta") == null)
@@ -54,8 +54,8 @@ namespace appPROYECTO_DSW_I.Controllers
             return ListadoProd;
         }
 
-
-        //-------------PARA SELECCION DETALLE PRODUCTO 
+        
+//----------------------------PARA SELECCION DETALLE PRODUCTO 
         ProductoModel Buscar(string id = "") //Para obtener el id producto del CATALOGO
         {
             ProductoModel reg = ListaProductos().Where(p => p.idProducto == id).FirstOrDefault();
@@ -108,6 +108,67 @@ namespace appPROYECTO_DSW_I.Controllers
             }
             HttpContext.Session.SetString("Canasta", JsonConvert.SerializeObject(carrito));
             return View(reg);
+        }
+
+ //-------------------------------PARA EL CARRITO DE COMPRAS
+        private decimal getSumaTotales() //Para obtener La suma Total del Carrito Compras
+        {
+            List<ItemCarrito> compras = JsonConvert.DeserializeObject<List<ItemCarrito>>(HttpContext.Session.GetString("Canasta"));
+            decimal SumaTotal = 0;
+            for (int i = 0; i < compras.Count; i++)
+            {
+                SumaTotal += compras[i].monto;
+            }
+            return SumaTotal;
+        }
+        public ActionResult Canasta() //Vista tipo List clase ItemCarrito
+        {
+            if (HttpContext.Session.GetString("Canasta") == null) return RedirectToAction("Portal");
+            IEnumerable<ItemCarrito> carrito = JsonConvert.DeserializeObject<List<ItemCarrito>>(HttpContext.Session.GetString("Canasta"));
+            ViewBag.SumaTotal = getSumaTotales();
+            return View(carrito);
+        }
+        public IActionResult Delete(string id)
+        {
+            List<ItemCarrito> carrito = JsonConvert.DeserializeObject<List<ItemCarrito>>(HttpContext.Session.GetString("Canasta"));
+
+            ItemCarrito reg = carrito.Where(it => it.idProducto == id).First();
+            carrito.Remove(reg);
+
+            HttpContext.Session.SetString("Canasta", JsonConvert.SerializeObject(carrito));
+            return RedirectToAction("Canasta");
+        }
+
+        public IActionResult FinalizarCompra()
+        {
+            SqlConnection cn = new SqlConnection(_config["ConnectionStrings:cn"]);
+            List<ItemCarrito> carrito = JsonConvert.DeserializeObject<List<ItemCarrito>>(HttpContext.Session.GetString("Canasta"));
+            cn.Open();
+            if (carrito != null && carrito.Count > 0)
+            {
+                SqlCommand cmdV = new SqlCommand("usp_NuevaBoleta", cn);
+                cmdV.CommandType = CommandType.StoredProcedure;
+                cmdV.Parameters.AddWithValue("@nom_Usuario", User.Identity.Name);
+                cmdV.Parameters.AddWithValue("@fechaOrden ", DateTime.Now);
+                cmdV.Parameters.AddWithValue("@Total", getSumaTotales());
+                cmdV.ExecuteNonQuery();
+
+                for (int i = 0; i < carrito.Count; i++)
+                {
+                    SqlCommand cmdB = new SqlCommand("usp_DetalleBoleta", cn);
+                    cmdB.CommandType = CommandType.StoredProcedure;
+                    cmdB.Parameters.AddWithValue("@idProducto", carrito[i].idProducto);
+                    cmdB.Parameters.AddWithValue("@nomProducto", carrito[i].nomProducto);
+                    cmdB.Parameters.AddWithValue("@precio", carrito[i].precio);
+                    cmdB.Parameters.AddWithValue("@cantidad", carrito[i].unidades);
+                    cmdB.Parameters.AddWithValue("@Monto", carrito[i].monto);
+                    cmdB.ExecuteNonQuery();
+                }
+                HttpContext.Session.Remove("Canasta");
+                ViewData.Model = "Gracias por realizar su compra Vuelva Pronto !!";
+            }
+            cn.Close();
+            return View();
         }
 
         public IActionResult Index()

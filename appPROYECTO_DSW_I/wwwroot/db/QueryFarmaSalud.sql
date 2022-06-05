@@ -44,7 +44,7 @@ go
 create table tb_usuarios
 (
 id_Usuario char(4) not null primary key,
-nom_Usuario varchar(40) not null,
+nom_Usuario varchar(40) not null primary key,
 correo_Usuario varchar(40) not null,
 contra varchar(20) not null,
 dirUsuario varchar(50) not null,
@@ -53,20 +53,29 @@ foreign key (id_tipo) references tb_tipoUsuario (id_tipo)
 )
 go
 
-create table tb_ordenPedido
+
+create table tb_Boleta
 (
-numOrdendePedido int identity not null primary key,
-id_Usuario char(4) not null,
-nom_Usuario varchar(40) not null,
-idProducto char(4) not null,
-precio decimal(10,1) not null,
-stock int not null,
-fechaOrden varchar(30) not null,
-constraint fk_orpidcli foreign key (id_Usuario) references tb_usuarios (id_Usuario),
-constraint fk_orpidpro foreign key (idProducto) references tb_productos (idProducto)
+idBoleta int identity(1, 1) primary key,
+nom_Usuario varchar(40),
+fechaOrden datetime not null,
+Total decimal(10,1) not null
 )
 go
 
+create table tb_DetalleBoleta
+(
+Id int identity(1, 1) primary key,
+idBoleta int not null,
+idProducto char(4) not null,
+nomProducto varchar(30) not null,
+precio decimal(10,1) not null,
+cantidad int not null,
+Monto decimal(10,1) not null,
+foreign key(idBoleta) references tb_Boleta (idBoleta),
+foreign key(idProducto) references tb_productos(idProducto)
+)
+Go
 
 --insertando datos en las tablas
 
@@ -105,11 +114,7 @@ insert into tb_usuarios values('C006','Brenda Vargas','brenda05@gmail.com','bren
 insert into tb_usuarios values('C007','Carlos Vargas','carlos01@gmail.com','carlos01','Calle Los Pinos,','2')
 insert into tb_usuarios values('K007','Carlos Vegas','carlos01@gmail.com','carlos01','Calle Los Pinos,',default)
 
---orden de pedido
-insert into tb_ordenPedido values('C001','Albert Tello','P003',15.2,60,'15/05/2022')
-insert into tb_ordenPedido values('C003','Erick Chavez','P006',48.5,80,'15/05/2022')
-insert into tb_ordenPedido values('C004','Gonzalo Cachuy','P008',15.7,40,'15/05/2022')
-insert into tb_ordenPedido values('C005','Brenda Vargas','P009',21.6,70,'15/05/2022')
+
 
 select * from tb_proveedor
 select * from tb_productos
@@ -221,5 +226,29 @@ AS
 BEGIN
 	Select nom_Usuario, correo_Usuario, contra, id_tipo from tb_usuarios
 	Where correo_Usuario = @correo_Usuario And contra=@contra
+END
+GO
+
+-------Procedures para Ventas
+CREATE or ALTER PROC usp_NuevaBoleta
+@nom_Usuario varchar(40),
+@fechaOrden datetime,
+@Total decimal(10,1)
+AS
+BEGIN
+	INSERT INTO tb_Boleta VALUES (@nom_Usuario, @fechaOrden, @Total)
+END
+GO
+
+CREATE or ALTER PROC usp_DetalleBoleta
+@idProducto char(4),
+@nomProducto varchar(30),
+@precio decimal(10,1),
+@cantidad int,
+@Monto decimal(10,1)
+AS
+BEGIN
+	Declare @idBoleta int = (select top 1 idBoleta from tb_Boleta order by idBoleta DESC);
+	INSERT INTO tb_DetalleBoleta VALUES (@idBoleta, @idProducto, @nomProducto, @precio,@cantidad,@Monto);
 END
 GO

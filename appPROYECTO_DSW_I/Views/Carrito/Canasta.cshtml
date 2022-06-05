@@ -1,0 +1,86 @@
+﻿@model IEnumerable<appPROYECTO_DSW_I.Models.ItemCarrito>
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Canasta</title>
+</head>
+<body>
+    <br />
+    <h1>CARRITO DE COMPRAS</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.idProducto)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.nomProducto)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.fechVencimiento)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.precio)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.unidades)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.monto)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.idProducto)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nomProducto)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fechVencimiento)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.precio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.unidades)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.monto)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Eliminar", "Delete", new { id = item.idProducto })
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th><a asp-action="FinalizarCompra" asp-controller="Carrito" class="btn btn-primary">Terminar Compra</a></th>
+                <th>
+                    <p>SUMA TOTAL</p>
+                </th>
+                <th>
+                    <p>@String.Format("{0:C}", @ViewBag.SumaTotal)</p>
+                </th>
+            </tr>
+        </tfoot>
+
+    </table>
+    <div>
+        <a asp-action="Catalogo" asp-controller="Carrito" class="btn btn-primary">Seguir Comprando</a>
+    </div>
+</body>
+</html>
