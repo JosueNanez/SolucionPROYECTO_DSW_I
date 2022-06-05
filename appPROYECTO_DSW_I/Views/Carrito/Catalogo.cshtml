@@ -1,0 +1,35 @@
+﻿@model IEnumerable<appPROYECTO_DSW_I.Models.ProductoModel>
+
+<link rel="stylesheet" href="~/css/estilosCatalogo.css" />
+<br /><br />
+<h2>CATALOGO DE PRODUCTOS</h2>
+
+
+<div>
+    <a asp-action="Canasta" asp-controller="Carrito" class="btn btn-primary">Carrito de Compras</a>
+    
+</div>
+
+<br />
+<div class="portal">
+    @foreach(var item in Model) {
+    <div class="registro">
+        <br />
+        <strong>@Html.DisplayFor(modelItem => item.nomProducto)</strong>
+        <br />
+        @*<em>Vencimiento : </em> @Html.DisplayFor(modelItem => item.fechVencimiento)
+        <br />
+        <em>Stock : </em> @Html.DisplayFor(modelItem => item.stock)
+        <br />*@
+        <em>Precio : S/. </em> @Html.DisplayFor(modelItem => item.precio)
+        <br />
+        <img src="@Url.Content(string.Format("~/img/Medicamentos/{0}.jpg", item.idProducto))" />
+        <br />
+        <strong>@Html.ActionLink("Detalle", "Detalle", new { id = item.idProducto })</strong>
+    </div>
+
+    }
+
+</div>
+
+
