@@ -112,7 +112,8 @@ namespace appPROYECTO_DSW_I.Controllers
         public async Task<IActionResult> Salir()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("LoginCookie", "Sesion");
+            //return RedirectToAction("LoginCookie", "Sesion");
+            return RedirectToAction("Index", "Home");
         }
 
 

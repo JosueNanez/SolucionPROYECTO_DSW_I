@@ -24,11 +24,17 @@
                 <li><a class="nav-link text-dark opc select" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a></li>
                 <li><a class="nav-link text-dark opc" asp-area="" asp-controller="Producto" asp-action="listarProductoNombre">Productos</a></li>
                 <!--li para el carrito-->
-                <li><a class="nav-link text-dark opc" asp-area="" asp-controller="" asp-action="">Carrito de Compras</a></li>
+                <li><a class="nav-link text-dark opc" asp-area="" asp-controller="" asp-action="">Carrito</a></li>
                 @if (User.IsInRole("1"))
                 {
                     <li><a class="nav-link text-dark opc" asp-area="" asp-controller="Usuario" asp-action="CreateUser">Nuevo Usuario</a></li>
                 }
+                @if (User.IsInRole("1") || User.IsInRole("2"))
+                {
+                <li><a class="nav-link text-dark aa" asp-area="" asp-controller="Carrito" asp-action="Catalogo">Catalogo</a> </li>  
+                }
+                @if (User.Identity.Name != null) { <li><a class="nav-link text-dark" asp-area="" asp-controller="Sesion" asp-action="Salir">Salir</a></li>}
+                
             </ul>
         </div>
         <div class="contini">
@@ -37,8 +43,12 @@
                     <span class="material-symbols-outlined">
                         person
                     </span>
-                    <a class="nav-link text-dark opci" asp-area="" asp-controller="Sesion" asp-action="Salir">
-                    Iniciar Sesión</a>
+                    @if (User.Identity.Name == null) { <a class="nav-link text-dark opci" asp-controller="Sesion" asp-action="LoginCookie">Iniciar Sesión</a> }
+                    @if (User.Identity.Name != null) { <a class="nav-link text-green opci"><strong>@User.Identity.Name</strong></a>}
+                    
+                    @*<a class="nav-link text-dark opci" asp-area="" asp-controller="Sesion" asp-action="Salir">
+                        Iniciar Sesión
+                    </a>*@
                 </li>
             </ul>
         </div>
