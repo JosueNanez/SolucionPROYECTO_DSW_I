@@ -66,7 +66,7 @@ namespace appPROYECTO_DSW_I
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Sesion}/{action=LoginCookie}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
         });
         }
     }

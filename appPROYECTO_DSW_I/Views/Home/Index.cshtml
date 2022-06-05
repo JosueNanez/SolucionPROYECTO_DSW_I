@@ -1,48 +1,116 @@
 ﻿@{
     ViewData["Title"] = "Inicio";
 }
-<style>
-    .cont{
-        display:block;
-        width:200px;
-        margin:auto;
-        text-align:center;
-        padding:20px 0;
-        margin-top:40px;
-    }
-    .aa{
-        transition:all 0.4s;
-    }
-        .aa:hover {
-           background-color: #229954;
-           color:white;
-        }
-</style>
 
-<div class="text-center">
-    <h1 class="display-4">Bienvenidos a FarmaSalud</h1>
-    @*<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>*@
-    <ul class="cont">
-        <a class="nav-link text-dark aa" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="Viewport" content="width=device-width" />
+    <title>Inicio</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-grid.min.css" />
+    <!--estilos-->
+    <link href="~/css/estilosIndex.css" rel="stylesheet" />
+    <!--iconouser-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+</head>
 
-        @if (User.IsInRole("1") || User.IsInRole("2"))
-        {
+<body>
+    <header id="header">
+        <div class="conttitu">
+            <h1 class="titulo">FarmaSalud</h1>
+        </div>
+        <div class="contnav">
+            <ul>
+                <li><a class="nav-link text-dark opc select" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a></li>
+                <li><a class="nav-link text-dark opc" asp-area="" asp-controller="Producto" asp-action="listarProductoNombre">Productos</a></li>
+                <!--li para el carrito-->
+                <li><a class="nav-link text-dark opc" asp-area="" asp-controller="" asp-action="">Carrito de Compras</a></li>
+                @if (User.IsInRole("1"))
+                {
+                    <li><a class="nav-link text-dark opc" asp-area="" asp-controller="Usuario" asp-action="CreateUser">Nuevo Usuario</a></li>
+                }
+            </ul>
+        </div>
+        <div class="contini">
+            <ul>
+                <li>
+                    <span class="material-symbols-outlined">
+                        person
+                    </span>
+                    <a class="nav-link text-dark opci" asp-area="" asp-controller="Sesion" asp-action="Salir">
+                    Iniciar Sesión</a>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <div id="baner">
+        <ul>
+            <li><img src="img/baner1.png" alt=""></li>
+            <li><img src="img/baner2.png" alt=""></li>
+            <li><img src="img/baner3.png" alt=""></li>
+            <li><img src="img/baner4.png" alt=""></li>
+        </ul>
+    </div>
+
+    <div id="ofertas">
+        <h1 class="tituofertas">Nuestras Promociones</h1>
+        <div class="contimgofer">
+            <section>
+                <div class="promo">
+                    <div class="contimgpromo"><img src="~/img/ofertas/oferta1.jpg" alt="Alternate Text" /></div>
+                    <p class="descrpromo">Prudential 20 Unid.</p>
+                </div>
+                <div class="promo">
+                    <div class="contimgpromo"><img src="~/img/ofertas/oferta2.jpg" alt="Alternate Text" /></div>
+                    <p class="descrpromo">Diutin 336 Grs.</p>
+                </div>
+                <div class="promo">
+                    <div class="contimgpromo"><img src="~/img/ofertas/oferta3.jpg" alt="Alternate Text" /></div>
+                    <p class="descrpromo">Mascarilla Kn200.</p>
+                </div>
+            </section>
+            <section>
+                <div class="promo">
+                    <div class="contimgpromo"><img src="~/img/ofertas/oferta4.jpg" alt="Alternate Text" /></div>
+                    <p class="descrpromo">Losadel 50ml.</p>
+                </div>
+                <div class="promo">
+                    <div class="contimgpromo"><img src="~/img/ofertas/oferta5.png" alt="Alternate Text" /></div>
+                    <p class="descrpromo">Durex Protex.</p>
+                </div>
+                <div class="promo">
+                    <div class="contimgpromo"><img src="~/img/ofertas/oferta6.jpg" alt="Alternate Text" /></div>
+                    <p class="descrpromo">Kallozil 50ml.</p>
+                </div>
+            </section>
+        </div>
+    </div>
+    <div id="footer">
+        <img src="~/img/footer.jpg" alt="Alternate Text" />
+    </div>
+
+    <!--<div class="text-center">
+        <h1 class="display-4">Bienvenidos a FarmaSalud</h1>-->
+        @*<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>*@
+        <!--<div class="cont">
+            <a class="nav-link text-dark aa" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
+
             <a class="nav-link text-dark aa" asp-area="" asp-controller="Producto" asp-action="listarProductoNombre">Productos</a>
-        }
+
+            @if (User.IsInRole("1"))
+            {
+                <a class="nav-link text-dark aa" asp-area="" asp-controller="Usuario" asp-action="CreateUser">Nuevo Usuario</a>
+            }
 
 
-
-        @if (User.IsInRole("1"))
-        {
-            <a class="nav-link text-dark aa" asp-area="" asp-controller="Usuario" asp-action="CreateUser">Nuevo Usuario</a>
-        }
+            <a class="nav-link text-dark aa" asp-area="" asp-controller="Sesion" asp-action="Salir">Iniciar Sesión</a>
 
 
-        <a class="nav-link text-dark aa" asp-area="" asp-controller="Sesion" asp-action="Salir">Salir</a>
-
-
-        @*<li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-            </li>*@
-    </ul>
-</div>
+            <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                </li>
+        </div>
+    </div>-->
+</body>
+</html>
