@@ -183,11 +183,19 @@
 
 /*FOOTER*/
 #footer{
-    width:90%;
-    margin: 0 auto 80px auto;
+    width:100%;
+    padding: 0;
+    margin:0;
 }
 #footer img{
+    width:80%;
+    display:block;
+    margin:auto;
+}
+.containerf{
+    background-color:white;
     width:100%;
+    max-height:50px;
 }
 
 /*.cont {

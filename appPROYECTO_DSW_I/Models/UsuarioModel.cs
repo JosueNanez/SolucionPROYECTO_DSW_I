@@ -9,17 +9,17 @@ namespace appPROYECTO_DSW_I.Models
 {
     public class UsuarioModel
     {
-        [Display(Name ="CODIGO")]
+        [Display(Name ="Codigo:")]
         public string idUser { get; set; }
-        [Display(Name ="NOMBRE")]
+        [Display(Name ="Nombre:")]
         public string nombreUser { get; set; }
-        [Display(Name ="CORREO")]
+        [Display(Name ="Correo:")]
         public string correoUser { get; set; }
-        [Display(Name ="CONTRASEÑA")]
+        [Display(Name ="Contraseña:")]
         public string claveUser { get; set; }
-        [Display(Name ="DIRECCION")]
+        [Display(Name ="Dirección:")]
         public string direcUser { get; set; }
-        [Display(Name ="TIPO")]
+        [Display(Name ="Tipo:")]
         public string idTipo { get; set; }
 
     }
