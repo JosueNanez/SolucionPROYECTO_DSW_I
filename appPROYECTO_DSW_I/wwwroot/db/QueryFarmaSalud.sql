@@ -44,7 +44,7 @@ go
 create table tb_usuarios
 (
 id_Usuario char(4) not null primary key,
-nom_Usuario varchar(40) not null primary key,
+nom_Usuario varchar(40) not null,
 correo_Usuario varchar(40) not null,
 contra varchar(20) not null,
 dirUsuario varchar(50) not null,
