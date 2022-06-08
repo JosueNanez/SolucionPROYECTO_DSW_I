@@ -4,40 +4,51 @@
     ViewData["Title"] = "CreateUser";
 }
 
-<h1 class="text-center">Nuevo Usuario</h1>
+<!DOCTYPE html>
 
-<hr />
-<div class="row">
-    <div class="col-md-4" style="width:40%;margin:auto;">
-        <form asp-action="CreateUser">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="idUser" class="control-label"></label>
-                <input asp-for="idUser" class="form-control" />
-                <span asp-validation-for="idUser" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="nombreUser" class="control-label"></label>
-                <input asp-for="nombreUser" class="form-control" />
-                <span asp-validation-for="nombreUser" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="correoUser" class="control-label"></label>
-                <input asp-for="correoUser" class="form-control" />
-                <span asp-validation-for="correoUser" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="claveUser" class="control-label"></label>
-                <input asp-for="claveUser" class="form-control" />
-                <span asp-validation-for="claveUser" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="direcUser" class="control-label"></label>
-                <input asp-for="direcUser" class="form-control" />
-                <span asp-validation-for="direcUser" class="text-danger"></span>
-            </div>
-            @*@if (User.IsInRole("1"))
-            {*@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Nuevo Cliente</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <link href="~/css/estilosRegis.css" rel="stylesheet" />
+</head>
+
+<body>
+    
+    <div class="contenedor">
+        <div class="contform">
+            <h1 class="text-center">Crear Nuevo Usuario</h1>
+            <form asp-action="CreateUser">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="idUser" class="control-label"></label>
+                    <input asp-for="idUser" class="form-control" />
+                    <span asp-validation-for="idUser" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="nombreUser" class="control-label"></label>
+                    <input asp-for="nombreUser" class="form-control" />
+                    <span asp-validation-for="nombreUser" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="correoUser" class="control-label"></label>
+                    <input asp-for="correoUser" class="form-control" />
+                    <span asp-validation-for="correoUser" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="claveUser" class="control-label"></label>
+                    <input asp-for="claveUser" class="form-control" />
+                    <span asp-validation-for="claveUser" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="direcUser" class="control-label"></label>
+                    <input asp-for="direcUser" class="form-control" />
+                    <span asp-validation-for="direcUser" class="text-danger"></span>
+                </div>
+                @*@if (User.IsInRole("1"))
+        {*@
                 <div class="form-group">
                     <label asp-for="idTipo" class="control-label"></label>
                     <select asp-for="idTipo" asp-items="@ViewBag.LISTCBO" class="form-control">
@@ -45,17 +56,15 @@
                     </select>
                     <span asp-validation-for="idTipo" class="text-danger"></span>
                 </div>
-            @*}*@
-        <div class="form-group" style="display:flex;">
-            <a asp-action="CreateUser" asp-controller="Usuario" class="btn btn-primary" style="margin-right:10px;">Limpiar</a>
-            <input type="submit" value="Registrar" class="btn btn-success" style="margin-right:10px;" />
+                @*}*@
+                <div>@ViewBag.mensaje</div>
+                <div class="form-group" style="display:flex;">
+                    <a asp-action="CreateUser" asp-controller="Usuario" class="btn btn-primary" style="margin-right:10px;">Limpiar</a>
+                    <input type="submit" value="Registrar" class="btn btn-success" style="margin-right:10px;" />
+                    <a class="btn btn-secondary" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
+                </div>
+            </form>
         </div>
-        </form>
     </div>
-</div>
-
-<div>
-    <a class="btn btn-secondary" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
-</div>
-
-<div>@ViewBag.mensaje</div>
+</body>
+</html>
