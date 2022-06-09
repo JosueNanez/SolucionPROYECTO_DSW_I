@@ -5,75 +5,78 @@
     ViewData["Title"] = "Edit";
 }
 
-<style>
-    #from{
-        display: block;
-        margin: auto;
-    }
-
-
-
-</style>
-
-<h1 class="text-center">Actualizar Producto</h1>
-<hr />
-<div class="row">
-    <div class="col-md-4" style="width:40%;margin:auto;">
-        <form asp-action="Edit" id="from">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="idProducto" class="control-label"></label>
-                <input asp-for="idProducto" class="form-control" />
-                <span asp-validation-for="idProducto" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="nomProducto" class="control-label"></label>
-                <input asp-for="nomProducto" class="form-control" />
-                <span asp-validation-for="nomProducto" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="fechVencimiento" class="control-label"></label>
-                <input asp-for="fechVencimiento" class="form-control" />
-                <span asp-validation-for="fechVencimiento" class="text-danger"></span>
-            </div>
-            @*<div class="form-group">
-                <label asp-for="nomProveedor" class="control-label"></label>
-                <input asp-for="nomProveedor" class="form-control" />
-                <span asp-validation-for="nomProveedor" class="text-danger"></span>
-            </div>*@
-        <div class="form-group">
-            <label asp-for="nomProveedor" class="control-label"></label>
-            @*<input asp-for="NomProveedor" class="form-control" />*@
-            <select asp-for="nomProveedor" asp-items="@ViewBag.proveedor" class="form-control"></select>
-            <span asp-validation-for="nomProveedor" class="text-danger"></span>
-        </div>
-            <div class="form-group">
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="Viewport" content="width=device-width" />
+    <title>Inicio</title>
+    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-grid.min.css" />*@
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <!--estilos-->
+    <!--iconouser-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+</head>
+<body style="padding-top:50px;">
+    <h1 class="text-center" style="color: #229954">Actualizar Producto</h1>
+    <hr />
+    <div class="row">
+        <div class="col-md-4" style="width:40%;margin:auto;">
+            <form asp-action="Edit" id="from">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="idProducto" class="control-label"></label>
+                    <input asp-for="idProducto" class="form-control form-control-color border-success" />
+                    <span asp-validation-for="idProducto" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="nomProducto" class="control-label"></label>
+                    <input asp-for="nomProducto" class="form-control form-control-color border-success" />
+                    <span asp-validation-for="nomProducto" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="fechVencimiento" class="control-label"></label>
+                    <input asp-for="fechVencimiento" class="form-control form-control-color border-success" />
+                    <span asp-validation-for="fechVencimiento" class="text-danger"></span>
+                </div>
+                @*<div class="form-group">
+                        <label asp-for="nomProveedor" class="control-label"></label>
+                        <input asp-for="nomProveedor" class="form-control" />
+                        <span asp-validation-for="nomProveedor" class="text-danger"></span>
+                    </div>*@
+                <div class="form-group">
+                    <label asp-for="nomProveedor" class="control-label"></label>
+                    @*<input asp-for="NomProveedor" class="form-control" />*@
+                    <select asp-for="nomProveedor" asp-items="@ViewBag.proveedor" class="form-control form-control-color border-success"></select>
+                    <span asp-validation-for="nomProveedor" class="text-danger"></span>
+                </div>
+                <div class="form-group">
                     <label asp-for="precio" class="control-label"></label>
-                    <input asp-for="precio" class="form-control" />
+                    <input asp-for="precio" class="form-control form-control-color border-success" />
                     <span asp-validation-for="precio" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="stock" class="control-label"></label>
-                    <input asp-for="stock" class="form-control" />
+                    <input asp-for="stock" class="form-control form-control-color border-success" />
                     <span asp-validation-for="stock" class="text-danger"></span>
                 </div>
                 <div class="form-group" style="display:flex;">
                     <input type="submit" value="Actualizar" class="btn btn-primary" style="margin-right:10px;" />
                     <a asp-action="listarProductoNombre" type="submit" class="btn btn-success">Retornar</a>
                 </div>
-        </form>
+            </form>
+        </div>
     </div>
-</div>
 
-<div>
-    
-</div>
+    <div>
 
-<div class="container text-center text-danger">
-    @ViewBag.mensaje
-</div>
+    </div>
 
+    <div class="container text-center text-danger">
+        @ViewBag.mensaje
+    </div>
 
+</body>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+</html>

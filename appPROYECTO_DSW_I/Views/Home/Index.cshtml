@@ -23,19 +23,24 @@
         <div class="contnav">
             <ul>
                 <li><a class="nav-link text-dark opc select" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a></li>
-                <li><a class="nav-link text-dark opc" asp-area="" asp-controller="Producto" asp-action="listarProductoNombre">Productos</a></li>
+                @if (User.IsInRole("1"))
+                {
+                    <li><a class="nav-link text-dark opc" asp-area="" asp-controller="Producto" asp-action="listarProductoNombre">Productos</a></li>
+                }
                 <!--li para el carrito-->
                 <li><a class="nav-link text-dark opc" asp-area="" asp-controller="" asp-action="">Carrito</a></li>
                 @if (User.IsInRole("1"))
                 {
                     <li><a class="nav-link text-dark opc" asp-area="" asp-controller="Usuario" asp-action="CreateUser">Nuevo Usuario</a></li>
                 }
-                @if (User.IsInRole("1") || User.IsInRole("2"))
+                <li><a class="nav-link text-dark opc" asp-area="" asp-controller="Carrito" asp-action="Catalogo">Catalogo</a> </li>
+
+
+                @if (User.Identity.Name != null)
                 {
-                <li><a class="nav-link text-dark aa" asp-area="" asp-controller="Carrito" asp-action="Catalogo">Catalogo</a> </li>  
+                    <li><a class="nav-link text-dark opc" asp-area="" asp-controller="Sesion" asp-action="Salir">Salir</a></li>
                 }
-                @if (User.Identity.Name != null) { <li><a class="nav-link text-dark" asp-area="" asp-controller="Sesion" asp-action="Salir">Salir</a></li>}
-                
+
             </ul>
         </div>
         <div class="contini">
@@ -57,10 +62,10 @@
 
     <div id="baner">
         <ul>
-            <li><img src="img/baner1.png" alt=""></li>
-            <li><img src="img/baner2.png" alt=""></li>
-            <li><img src="img/baner3.png" alt=""></li>
-            <li><img src="img/baner4.png" alt=""></li>
+            <li><img src="~/img/baner1.png" alt=""></li>
+            <li><img src="~/img/baner2.png" alt=""></li>
+            <li><img src="~/img/baner3.png" alt=""></li>
+            <li><img src="~/img/baner4.png" alt=""></li>
         </ul>
     </div>
 

@@ -4,86 +4,147 @@
     ViewData["Title"] = "listarProductoNombre";
 }
 
-<h1 class="text-center">Productos</h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="Viewport" content="width=device-width" />
+    <title>Inicio</title>
+    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-grid.min.css" />*@
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <!--estilos-->
+    <link href="~/css/estilosListProd.css" rel="stylesheet" />
+    <!--iconouser-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+</head>
 
-<div style="display:flex;width:100%;justify-content:space-between;margin-bottom:20px;">
-
-    @using (Html.BeginForm())
-    {
-        <div>
-            <p>Ingrese Nombre del producto:</p>
-            @Html.TextBox("nombre", "")
-            <button class="btn btn-warning">Buscar</button>
+<body>
+    <div id="header">
+        <div class="conttitu">
+            <h1 class="titulo">FarmaSalud</h1>
         </div>
-    }
-
-    @if (User.IsInRole("1"))
-    {
-        <p>
-            <a asp-action="Create" type="submit" class="btn btn-success">Nuevo producto </a>
-        </p>
-    }
-</div>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.idProducto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.nomProducto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.fechVencimiento)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.nomProveedor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.precio)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.stock)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.idProducto)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.nomProducto)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.fechVencimiento)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.nomProveedor)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.precio)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.stock)
-                </td>
+        <div class="contnav">
+            <ul>
+                <li><a class="nav-link text-dark opc" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a></li>
                 @if (User.IsInRole("1"))
                 {
-                    <td>
-                        @Html.ActionLink("Actualizar", "Edit", new { id = item.idProducto })
-
-                        @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
-                    </td>
+                    <li><a class="nav-link text-dark opc select" asp-area="" asp-controller="Producto" asp-action="listarProductoNombre">Productos</a></li>
                 }
-            </tr>
-        }
-    </tbody>
-</table>
-<div style="margin-top:20px;">
-    <a class="btn btn-secondary" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
-</div>
+                <!--li para el carrito-->
+                <li><a class="nav-link text-dark opc" asp-area="" asp-controller="" asp-action="">Carrito</a></li>
+                @if (User.IsInRole("1"))
+                {
+                    <li><a class="nav-link text-dark opc" asp-area="" asp-controller="Usuario" asp-action="CreateUser">Nuevo Usuario</a></li>
+                }
+                <li><a class="nav-link text-dark opc" asp-area="" asp-controller="Carrito" asp-action="Catalogo">Catalogo</a> </li>
 
+
+                @if (User.Identity.Name != null)
+                {
+                    <li><a class="nav-link text-dark opc" asp-area="" asp-controller="Sesion" asp-action="Salir">Salir</a></li>
+                }
+
+            </ul>
+        </div>
+        <div class="contini">
+            <ul>
+                <li>
+                    <span class="material-symbols-outlined">
+                        person
+                    </span>
+                    @if (User.Identity.Name == null)
+                    {<a class="nav-link text-dark opci" asp-controller="Sesion" asp-action="LoginCookie">Iniciar Sesión</a>}
+                    @if (User.Identity.Name != null)
+                    {<a class="nav-link text-green opci"><strong>@User.Identity.Name</strong></a>}
+
+                @*<a class="nav-link text-dark opci" asp-area="" asp-controller="Sesion" asp-action="Salir">
+                        Iniciar Sesión
+                    </a>*@
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="conttableprod">
+        <h1 class="text-center" style="color: #229954">Lista de Productos</h1>
+
+        <div style="display:flex;width:100%;justify-content:space-between;margin-bottom:20px;">
+
+            @using (Html.BeginForm())
+            {
+                <div>
+                    <p>Ingrese Nombre del producto:</p>
+                    @Html.TextBox("nombre", "")
+                    <button class="btn btn-warning">Buscar</button>
+                </div>
+            }
+
+            @if (User.IsInRole("1"))
+            {
+                <p>
+                    <a asp-action="Create" type="submit" class="btn btn-success">Nuevo producto </a>
+                </p>
+            }
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.idProducto)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.nomProducto)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.fechVencimiento)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.nomProveedor)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.precio)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.stock)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.idProducto)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.nomProducto)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.fechVencimiento)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.nomProveedor)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.precio)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.stock)
+                        </td>
+                        @if (User.IsInRole("1"))
+                        {
+                            <td>
+                                @Html.ActionLink("Actualizar", "Edit", new { id = item.idProducto })
+
+                                @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>
