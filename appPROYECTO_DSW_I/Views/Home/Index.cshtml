@@ -28,7 +28,7 @@
                     <li><a class="nav-link text-dark opc" asp-area="" asp-controller="Producto" asp-action="listarProductoNombre">Productos</a></li>
                 }
                 <!--li para el carrito-->
-                <li><a class="nav-link text-dark opc" asp-area="" asp-controller="" asp-action="">Carrito</a></li>
+                <li><a asp-action="Canasta" asp-controller="Carrito" class="nav-link text-dark opc">Carrito de Compras</a></li>
                 @if (User.IsInRole("1"))
                 {
                     <li><a class="nav-link text-dark opc" asp-area="" asp-controller="Usuario" asp-action="CreateUser">Nuevo Usuario</a></li>

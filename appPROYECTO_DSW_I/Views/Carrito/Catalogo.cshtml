@@ -1,35 +1,102 @@
 ﻿@model IEnumerable<appPROYECTO_DSW_I.Models.ProductoModel>
 
-<link rel="stylesheet" href="~/css/estilosCatalogo.css" />
-<br /><br />
-<h2>CATALOGO DE PRODUCTOS</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="Viewport" content="width=device-width" />
+    <title>Catálogo</title>
+    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-grid.min.css" />*@
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <!--estilos-->
+    <link rel="stylesheet" href="~/css/estilosCatalog.css" />
+    <!--iconouser-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+</head>
+<body>
+
+    <div id="header">
+        <div class="conttitu">
+            <h1 class="titulo">FarmaSalud</h1>
+        </div>
+        <div class="contnav">
+            <ul>
+                <li><a class="nav-link text-dark opc" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a></li>
+                @if (User.IsInRole("1"))
+                {
+                    <li><a class="nav-link text-dark opc" asp-area="" asp-controller="Producto" asp-action="listarProductoNombre">Productos</a></li>
+                }
+                <!--li para el carrito-->
+                <li><a asp-action="Canasta" asp-controller="Carrito" class="nav-link text-dark opc">Carrito de Compras</a></li>
+                @if (User.IsInRole("1"))
+                {
+                    <li><a class="nav-link text-dark opc" asp-area="" asp-controller="Usuario" asp-action="CreateUser">Nuevo Usuario</a></li>
+                }
+                <li><a class="nav-link text-dark opc select" asp-area="" asp-controller="Carrito" asp-action="Catalogo">Catálogo</a> </li>
 
 
-<div>
-    <a asp-action="Canasta" asp-controller="Carrito" class="btn btn-primary">Carrito de Compras</a>
-    
-</div>
+                @if (User.Identity.Name != null)
+                {
+                    <li><a class="nav-link text-dark opc" asp-area="" asp-controller="Sesion" asp-action="Salir">Salir</a></li>
+                }
 
-<br />
-<div class="portal">
-    @foreach(var item in Model) {
-    <div class="registro">
-        <br />
-        <strong>@Html.DisplayFor(modelItem => item.nomProducto)</strong>
-        <br />
-        @*<em>Vencimiento : </em> @Html.DisplayFor(modelItem => item.fechVencimiento)
-        <br />
-        <em>Stock : </em> @Html.DisplayFor(modelItem => item.stock)
-        <br />*@
-        <em>Precio : S/. </em> @Html.DisplayFor(modelItem => item.precio)
-        <br />
-        <img src="@Url.Content(string.Format("~/img/Medicamentos/{0}.jpg", item.idProducto))" />
-        <br />
-        <strong>@Html.ActionLink("Detalle", "Detalle", new { id = item.idProducto })</strong>
+            </ul>
+        </div>
+        <div class="contini">
+            <ul>
+                <li>
+                    <span class="material-symbols-outlined">
+                        person
+                    </span>
+                    @if (User.Identity.Name == null)
+                    {<a class="nav-link text-dark opci" asp-controller="Sesion" asp-action="LoginCookie">Iniciar Sesión</a>}
+                    @if (User.Identity.Name != null)
+                    {<a class="nav-link text-green opci"><strong>@User.Identity.Name</strong></a>}
+
+                @*<a class="nav-link text-dark opci" asp-area="" asp-controller="Sesion" asp-action="Salir">
+                        Iniciar Sesión
+                    </a>*@
+                </li>
+            </ul>
+        </div>
     </div>
 
-    }
+    <div id="contprod">
+        <h2>Catálogo de Productos</h2>
 
-</div>
+        <div class="portal">
+            @foreach (var item in Model)
+            {
+                <div class="registro">
+                    <div class="contimg">
+                        <img src="@Url.Content(string.Format("~/img/Medicamentos/{0}.jpg", item.idProducto))" />
+                    </div>
 
+                    <div class="contlet">
+                        <strong class="nomprod">@Html.DisplayFor(modelItem => item.nomProducto)</strong>
+                        <div class="preprod">
+                            <em>Precio : S/. </em> @Html.DisplayFor(modelItem => item.precio)
+                        </div>
+                        <strong class="btn btn-light botndet">@Html.ActionLink("Ver Producto", "Detalle", new { id = item.idProducto })</strong>
+                    </div>
+                    @*<em>Vencimiento : </em> @Html.DisplayFor(modelItem => item.fechVencimiento)
+                    <br />
+                    <em>Stock : </em> @Html.DisplayFor(modelItem => item.stock)
+                    <br />*@
+                </div>
 
+            }
+
+        </div>
+
+        <div id="footer">
+            <img src="~/img/footer.jpg" alt="Alternate Text" />
+            <div class="containerf">
+                @*&copy; 2022 - appPROYECTO_DSW_I - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>*@
+                <p style="text-align:center;font-size:13px;padding:10px 0;">
+                    © 2022 Servicio Login. Todos Los Derechos Reservados | Diseñado por FarmaSalud
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
