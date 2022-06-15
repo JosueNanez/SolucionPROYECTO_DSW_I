@@ -4,16 +4,35 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>FinalizarCompra</title>
+    <title>Finalizar Compra</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <!--estilos-->
+    <link href="~/css/estilosFinalCompra.css" rel="stylesheet" />
 </head>
 <body>
-    <br />
-    <h1>COMPRA REALIZADA</h1>
-    <br />
-    <strong>@ViewData.Model</strong>
-    <br /><br />
-    <div>
-        <a asp-action="Catalogo" asp-controller="Carrito" class="btn btn-primary">Nueva Compra</a>
+    <div class="conten">
+        <div class="primer">
+            <h1>Muchas gracias por tu compra!</h1>
+            <p>
+                Recibirás tu pedido en 24 horas, puedes hacer el seguimiento desde <a href="#">aquí</a> con el código que te ha
+                llegado a tu correo. Mientras esperas tu pedido, puedes ver el tutorial de <a href="#">youtube</a> de como usarlo.
+            </p>
+            <a class="btn btn-success" asp-area="" asp-controller="Home" asp-action="Index">Volver a Inicio</a>
+        </div>
+        <div class="segun">
+            <h2>Síguenos también en nuestras redes sociales</h2>
+            <img src="~/img/redes.png" alt="Alternate Text" />
+        </div>
     </div>
+    <div id="footer">
+        <img src="~/img/footer.jpg" alt="Alternate Text" />
+        <div class="containerf">
+            @*&copy; 2022 - appPROYECTO_DSW_I - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>*@
+            <p style="text-align:center;font-size:13px;padding:10px 0;">
+                © 2022 Servicio Login. Todos Los Derechos Reservados | Diseñado por FarmaSalud
+            </p>
+        </div>
+    </div>
+    <strong>@ViewData.Model</strong>
 </body>
 </html>
