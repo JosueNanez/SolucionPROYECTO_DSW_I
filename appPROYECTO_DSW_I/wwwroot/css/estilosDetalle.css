@@ -1,0 +1,145 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+}
+/*header*/
+#header {
+    width: 100%;
+    height: 80px;
+    box-shadow: 0 5px 10px #229954;
+    display: flex;
+    justify-content: center;
+    margin-bottom:10px;
+}
+
+.conttitu, .contini {
+    width: 30%;
+    padding-top: 20px;
+    color: #229954;
+}
+
+.conttitu {
+    display: flex;
+    justify-content: center;
+}
+
+.titulo {
+    color: #229954;
+    font-size: 30px;
+}
+
+.contnav {
+    width: 40%;
+    padding-top: 20px;
+    color: #229954;
+}
+
+    .contnav ul {
+        display: flex;
+        justify-content: flex-start;
+        color: #229954;
+    }
+
+.contini {
+    display: flex;
+}
+
+    .contini ul {
+        display: flex;
+        justify-content: flex-end;
+        color: #229954;
+    }
+
+        .contini ul li {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+#header li {
+    list-style: none;
+    color: #229954;
+}
+
+.opc, .opci {
+    text-decoration: none;
+    color: #229954;
+    cursor: pointer;
+    margin: 0 5px;
+    position: relative;
+    padding-bottom: 5px;
+}
+
+    .opc:before {
+        content: "";
+        display: block;
+        width: 0;
+        height: 2px;
+        background: #229954;
+        left: 50%;
+        bottom: 0;
+        position: absolute;
+        transition: all 0.3s;
+    }
+
+    .opc:hover:before {
+        width: 100%;
+        left: 0;
+    }
+
+.select {
+    background-color: #EBFFF3;
+    border-radius: 3px;
+}
+
+.material-symbols-outlined {
+    width: 25px;
+    height: 25px;
+    margin-top: 8px;
+}
+
+
+/*Tabla*/
+#contendetalle {
+    width: 100%;
+    padding: 80px 0;
+    background-color: #EFEFEF;
+}
+.tablacont {
+    background-color: #fff;
+    width: 65%;
+    border-radius: 5px;
+    margin: auto;
+    padding-top:30px;
+}
+.contimgpro{
+    width: 450px;
+    height: 400px;
+    margin: 20px 0;
+}
+    .contimgpro img {
+        width: 400px;
+        height: 370px;
+        margin-left:25px;
+        display:block;
+    }
+
+
+
+/*FOOTER*/
+#footer {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+    #footer img {
+        width: 80%;
+        display: block;
+        margin: auto;
+    }
+
+.containerf {
+    background-color: white;
+    width: 100%;
+    max-height: 50px;
+}

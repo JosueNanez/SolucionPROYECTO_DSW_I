@@ -5,52 +5,106 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Detalle</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <!--estilos-->
+    <link href="~/css/estilosDetalle.css" rel="stylesheet" />
+    <!--iconouser-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 </head>
 <body>
 
-    <div>
-        <br /><br />
-        <h4>DETALLE DEL PRODUCTO</h4>
+    <div id="header">
+        <div class="conttitu">
+            <h1 class="titulo">FarmaSalud</h1>
+        </div>
+        <div class="contnav">
+            <ul>
+                <li><a class="nav-link text-dark opc" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a></li>
+                @if (User.IsInRole("1"))
+                {
+                    <li><a class="nav-link text-dark opc" asp-area="" asp-controller="Producto" asp-action="listarProductoNombre">Productos</a></li>
+                }
+                <!--li para el carrito-->
+                <li><a asp-action="Canasta" asp-controller="Carrito" class="nav-link text-dark opc">Carrito de Compras</a></li>
+                @if (User.IsInRole("1"))
+                {
+                    <li><a class="nav-link text-dark opc" asp-area="" asp-controller="Usuario" asp-action="CreateUser">Nuevo Usuario</a></li>
+                }
+                <li><a class="nav-link text-dark opc select" asp-area="" asp-controller="Carrito" asp-action="Catalogo">Catalogo</a> </li>
 
-        <table class="table">
+
+                @if (User.Identity.Name != null)
+                {
+                    <li><a class="nav-link text-dark opc" asp-area="" asp-controller="Sesion" asp-action="Salir">Salir</a></li>
+                }
+
+            </ul>
+        </div>
+        <div class="contini">
+            <ul>
+                <li>
+                    <span class="material-symbols-outlined">
+                        person
+                    </span>
+                    @if (User.Identity.Name == null)
+                    {<a class="nav-link text-dark opci" asp-controller="Sesion" asp-action="LoginCookie">Iniciar Sesión</a>}
+                    @if (User.Identity.Name != null)
+                    {<a class="nav-link text-green opci"><strong>@User.Identity.Name</strong></a>}
+
+                @*<a class="nav-link text-dark opci" asp-area="" asp-controller="Sesion" asp-action="Salir">
+                        Iniciar Sesión
+                    </a>*@
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="contendetalle">
+        <table class="table tablacont">
             <tbody>
                 <tr>
+                    <td class="contimgpro">
+                        <dl class="row">
+                            <dd>
+                                <img src="@Url.Content(string.Format("~/img/Medicamentos/{0}.jpg", Model.idProducto))"/>
+                            </dd>
+                        </dl>
+                    </td>
                     <td>
-                        <br />
                         <dl class="row">
 
                             <dt class="col-sm-3">
-                                CODIGO :
+                                Código:
                             </dt>
                             <dd class="col-sm-7">
                                 @Html.DisplayFor(model => model.idProducto)
                             </dd>
                             <dt class="col-sm-3">
-                                NOMBRE :
+                                Producto:
                             </dt>
                             <dd class="col-sm-7">
                                 @Html.DisplayFor(model => model.nomProducto)
                             </dd>
                             <dt class="col-sm-3">
-                                VENCIMIENTO :
+                                Fecha de Venc.:
                             </dt>
                             <dd class="col-sm-7">
                                 @Html.DisplayFor(model => model.fechVencimiento)
                             </dd>
                             <dt class="col-sm-3">
-                                PROVEEDOR :
+                                Proveedor:
                             </dt>
                             <dd class="col-sm-7">
                                 @Html.DisplayFor(model => model.nomProveedor)
                             </dd>
                             <dt class="col-sm-3">
-                                PRECIO : S/.
+                                Precio: S/.
                             </dt>
                             <dd class="col-sm-7">
                                 @Html.DisplayFor(model => model.precio)
                             </dd>
                             <dt class="col-sm-3">
-                                STOCK :
+                                Cantidad:
                             </dt>
                             <dd class="col-sm-7">
                                 @Html.DisplayFor(model => model.stock)
@@ -60,7 +114,7 @@
                             @using (Html.BeginForm())
                             {
                                 @Html.Hidden("codigo", Model.idProducto)<!--Valor Oculto-->
-                                <strong>Ingrese la Cantidad</strong>
+                                <strong>Ingrese Cantidad:</strong>
                                 @Html.TextBox("cantidad", 1)
                                 <input type="submit" value="Agregar" class="btn btn-primary" />
                                 <a asp-action="Canasta" asp-controller="Carrito" class="btn btn-primary">Carrito de Compras</a>
@@ -69,21 +123,22 @@
                         <strong style="color:forestgreen">@ViewBag.mensaje</strong>
                         <br /><br />
                         <div>
-                            <a asp-action="Catalogo" asp-controller="Carrito" class="btn btn-primary">Seguir Comprando</a>
+                            <a asp-action="Catalogo" asp-controller="Carrito" class="btn btn-success">Seguir Comprando</a>
                         </div>
-                    </td>
-                    <td>
-                        <dl class="row">
-                            <dd>
-                                <img src="@Url.Content(string.Format("~/img/Medicamentos/{0}.jpg", Model.idProducto))" style="width: 400px; height: 370px; " />
-                            </dd>
-                        </dl>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <hr /><br />
+    <div id="footer">
+        <img src="~/img/footer.jpg" alt="Alternate Text" />
+        <div class="containerf">
+            @*&copy; 2022 - appPROYECTO_DSW_I - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>*@
+            <p style="text-align:center;font-size:13px;padding:10px 0;">
+                © 2022 Servicio Login. Todos Los Derechos Reservados | Diseñado por FarmaSalud
+            </p>
+        </div>
+    </div>
 
 </body>
 </html>

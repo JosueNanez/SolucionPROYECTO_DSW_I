@@ -7,80 +7,151 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Canasta</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <!--estilos-->
+    <link href="~/css/estilosCarrito.css" rel="stylesheet" />
+    <!--iconouser-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 </head>
 <body>
-    <br />
-    <h1>CARRITO DE COMPRAS</h1>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.idProducto)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.nomProducto)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.fechVencimiento)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.precio)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.unidades)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.monto)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.idProducto)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.nomProducto)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.fechVencimiento)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.precio)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.unidades)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.monto)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Eliminar", "Delete", new { id = item.idProducto })
-                    </td>
-                </tr>
-            }
-        </tbody>
-        <tfoot>
-            <tr>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th><a asp-action="FinalizarCompra" asp-controller="Carrito" class="btn btn-primary">Terminar Compra</a></th>
-                <th>
-                    <p>SUMA TOTAL</p>
-                </th>
-                <th>
-                    <p>@String.Format("{0:C}", @ViewBag.SumaTotal)</p>
-                </th>
-            </tr>
-        </tfoot>
+    <div id="header">
+        <div class="conttitu">
+            <h1 class="titulo">FarmaSalud</h1>
+        </div>
+        <div class="contnav">
+            <ul>
+                <li><a class="nav-link text-dark opc" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a></li>
+                @if (User.IsInRole("1"))
+                {
+                    <li><a class="nav-link text-dark opc" asp-area="" asp-controller="Producto" asp-action="listarProductoNombre">Productos</a></li>
+                }
+                <!--li para el carrito-->
+                <li><a asp-action="Canasta" asp-controller="Carrito" class="nav-link text-dark opc select">Carrito de Compras</a></li>
+                @if (User.IsInRole("1"))
+                {
+                    <li><a class="nav-link text-dark opc" asp-area="" asp-controller="Usuario" asp-action="CreateUser">Nuevo Usuario</a></li>
+                }
+                <li><a class="nav-link text-dark opc" asp-area="" asp-controller="Carrito" asp-action="Catalogo">Catalogo</a> </li>
 
-    </table>
-    <div>
-        <a asp-action="Catalogo" asp-controller="Carrito" class="btn btn-primary">Seguir Comprando</a>
+
+                @if (User.Identity.Name != null)
+                {
+                    <li><a class="nav-link text-dark opc" asp-area="" asp-controller="Sesion" asp-action="Salir">Salir</a></li>
+                }
+
+            </ul>
+        </div>
+        <div class="contini">
+            <ul>
+                <li>
+                    <span class="material-symbols-outlined">
+                        person
+                    </span>
+                    @if (User.Identity.Name == null)
+                    {<a class="nav-link text-dark opci" asp-controller="Sesion" asp-action="LoginCookie">Iniciar Sesión</a>}
+                    @if (User.Identity.Name != null)
+                    {<a class="nav-link text-green opci"><strong>@User.Identity.Name</strong></a>}
+
+                @*<a class="nav-link text-dark opci" asp-area="" asp-controller="Sesion" asp-action="Salir">
+                        Iniciar Sesión
+                    </a>*@
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="conttabla">
+        <h1>Mi Carrito</h1>
+        <div class="contene">
+            <table class="table table-bordered tabla">
+                <thead>
+                    <tr>
+                        <th></th>
+                        @*<th>
+                                @Html.DisplayNameFor(model => model.idProducto)
+                            </th>*@
+                        <th>
+                            @Html.DisplayNameFor(model => model.nomProducto)
+                        </th>
+                        @*<th>
+                                @Html.DisplayNameFor(model => model.fechVencimiento)
+                            </th>*@
+                        <th>
+                            @Html.DisplayNameFor(model => model.precio)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.unidades)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.monto)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td><img class="imgt" src="@Url.Content(string.Format("~/img/Medicamentos/{0}.jpg", item.idProducto))" /></td>
+                            @*<td>
+                                    @Html.DisplayFor(modelItem => item.idProducto)
+                                </td>*@
+                            <td>
+                                @Html.DisplayFor(modelItem => item.nomProducto)
+                            </td>
+                            @*<td>
+                                    @Html.DisplayFor(modelItem => item.fechVencimiento)
+                                </td>*@
+                            <td>
+                                @Html.DisplayFor(modelItem => item.precio)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.unidades)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.monto)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Eliminar", "Delete", new { id = item.idProducto })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            @*<table class="tabla2">
+                    <tr style="padding: 15px;">
+                        <th>
+                            <p>Total:</p>
+                        </th>
+                        <th>
+                            <p>@String.Format("{0:C}", @ViewBag.SumaTotal)</p>
+                        </th>
+                    <tr/>
+                    <tr>
+                        <th><a asp-action="FinalizarCompra" asp-controller="Carrito" class="btn btn-primary">Terminar Compra</a></th>
+                    </tr>
+                </table>*@
+            <div class="tabla2">
+                <h2>Resumen de compra</h2>
+                <section>
+                    <strong>Total: </strong>
+                    <p>@String.Format("{0:C}", @ViewBag.SumaTotal)</p>
+                </section>
+                <a asp-action="FinalizarCompra" asp-controller="Carrito" class="btn btn-success boton">Terminar Compra</a>
+            </div>
+        </div>
+        <div>
+            <a asp-action="Catalogo" asp-controller="Carrito" class="btn btn-info segcom">Seguir Comprando</a>
+        </div>
+    </div>
+    <div id="footer">
+        <img src="~/img/footer.jpg" alt="Alternate Text" />
+        <div class="containerf">
+            @*&copy; 2022 - appPROYECTO_DSW_I - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>*@
+            <p style="text-align:center;font-size:13px;padding:10px 0;">
+                © 2022 Servicio Login. Todos Los Derechos Reservados | Diseñado por FarmaSalud
+            </p>
+        </div>
     </div>
 </body>
 </html>

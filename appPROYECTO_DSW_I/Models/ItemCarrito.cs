@@ -9,17 +9,17 @@ namespace appPROYECTO_DSW_I.Models
 {
     public class ItemCarrito
     {
-        [Display(Name = "CODIGO")]
+        [Display(Name = "Codigo")]
         public string idProducto { get; set; }
-        [Display(Name = "PRODUCTO")]
+        [Display(Name = "Producto")]
         public string nomProducto { get; set; }
-        [Display(Name = "FEC VENCIMIENTO")]
+        [Display(Name = "Fec. Vencimiento")]
         public String fechVencimiento { get; set; }
-        [Display(Name = "PRECIO")]
+        [Display(Name = "Precio")]
         public decimal precio { get; set; }
-        [Display(Name = "CANTIDAD")]
+        [Display(Name = "Cantidad")]
         public int unidades { get; set; }
-        [Display(Name = "MONTO")]
+        [Display(Name = "Total")]
         public decimal monto { get { return precio * unidades; } }
 
 
