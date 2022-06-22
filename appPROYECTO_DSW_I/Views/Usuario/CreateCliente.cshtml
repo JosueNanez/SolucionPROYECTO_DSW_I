@@ -1,4 +1,6 @@
 ﻿@model appPROYECTO_DSW_I.Models.UsuarioModel
+@Html.AntiForgeryToken()
+
 
 <!DOCTYPE html>
 
@@ -13,7 +15,7 @@
 <body>
 
     <div class="contenedor">
-        
+
         <div class="contform">
             <h1 class="text-center">Registro</h1>
             <form asp-action="CreateCliente">

@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
 
+
 namespace appPROYECTO_DSW_I.Controllers
 {
     public class SesionController : Controller
@@ -28,7 +29,7 @@ namespace appPROYECTO_DSW_I.Controllers
         }
 
 
-
+        
         public IActionResult Inicio()
         {
             return View(new UsuarioModel());
@@ -65,7 +66,7 @@ namespace appPROYECTO_DSW_I.Controllers
         }
 
 
-
+        
         public IActionResult LoginCookie()
         {
             return View(new UsuarioModel());

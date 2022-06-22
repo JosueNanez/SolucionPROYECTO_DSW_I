@@ -9,6 +9,7 @@ using System.Data;
 using appPROYECTO_DSW_I.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Web;
 
 using Microsoft.AspNetCore.Authorization;
 
@@ -24,7 +25,7 @@ namespace appPROYECTO_DSW_I.Controllers
             _Iconfig = Iconfig;
         }
 
-
+        
         [Authorize(Roles ="1, 2")]
         public async Task<IActionResult> ProductoListado()
         {
@@ -58,7 +59,7 @@ namespace appPROYECTO_DSW_I.Controllers
 
 
         /*************/
-
+        [ValidateAntiForgeryToken]
         [Authorize(Roles = "1, 2")]
         public async Task<IActionResult> listarProductoNombre(string nombre)
         {
@@ -125,6 +126,7 @@ namespace appPROYECTO_DSW_I.Controllers
         /************************************ parte de Iman **********************************/
 
         //para CREAR Y ACTUALIZAR PRODUCTOS
+        [ValidateAntiForgeryToken]
         [Authorize(Roles = "1")]
         public async Task<IActionResult> Create()
         {

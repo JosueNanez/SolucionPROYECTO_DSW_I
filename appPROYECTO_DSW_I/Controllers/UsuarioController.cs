@@ -24,6 +24,7 @@ namespace appPROYECTO_DSW_I.Controllers
 
 		///---------------------------------------NUEVO USUARIO (ADMINISTRADOR O CLIENTE)
 		//[Authorize(Roles = "1,2")]
+		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> CreateUser()
 		{
 			ViewBag.LISTCBO = new SelectList(await Task.Run(() => UsuarioProceso.ListTipoUser()), "idTipo", "descTipo");
@@ -44,6 +45,7 @@ namespace appPROYECTO_DSW_I.Controllers
 
 
 		///---------------------------------------NUEVO USUARIO (SOLO CLIENTE)
+        [ValidateAntiForgeryToken]
 		public IActionResult CreateCliente()
 		{
 			return View(new UsuarioModel());

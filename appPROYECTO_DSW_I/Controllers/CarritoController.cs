@@ -24,6 +24,7 @@ namespace appPROYECTO_DSW_I.Controllers
         }
 
 //---------------------------PARA EL CATALOGO
+        
         public async Task<IActionResult> Catalogo()
         {
             if (HttpContext.Session.GetString("Canasta") == null)
