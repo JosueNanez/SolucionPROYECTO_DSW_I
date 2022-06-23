@@ -1,0 +1,91 @@
+﻿@model IEnumerable<appPROYECTO_DSW_I.Models.tb_DetalleBoleta>
+
+@{
+    ViewData["Title"] = "ReporteProductosVendidos";
+}
+
+
+<head>
+    <meta name="Viewport" content="width=device-width" />
+    <title>ReporteProductosVendidos</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <!--estilos-->
+    <link href="~/css/estilosListProd.css" rel="stylesheet" />
+    <!--iconouser-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+</head>
+
+<body>
+    <br /><br />
+    <h1>REPORTES: PRODUCTOS VENDIDOS</h1>
+    <br />
+    <p>
+        <a asp-controller="Home" asp-action="Index">Inicio</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    CODIGO
+                </th>
+                <th>
+                    ID BOLETA
+                </th>
+                <th>
+                    ID PRODUCTO
+                </th>
+                <th>
+                    NOMBRE
+                </th>
+                <th>
+                    PRECIO
+                </th>
+                <th>
+                    CANTIDAD
+                </th>
+                <th>
+                    MONTO
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.idBoleta)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.idProducto)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nomProducto)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.precio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.cantidad)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Monto)
+                    </td>
+                    @*<td>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>*@
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</body>
+
+
+
+

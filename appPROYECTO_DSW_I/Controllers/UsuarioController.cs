@@ -24,13 +24,14 @@ namespace appPROYECTO_DSW_I.Controllers
 
 		///---------------------------------------NUEVO USUARIO (ADMINISTRADOR O CLIENTE)
 		//[Authorize(Roles = "1,2")]
-		[ValidateAntiForgeryToken]
+		
 		public async Task<IActionResult> CreateUser()
 		{
 			ViewBag.LISTCBO = new SelectList(await Task.Run(() => UsuarioProceso.ListTipoUser()), "idTipo", "descTipo");
 			return View(new UsuarioModel());
 		}
 		[HttpPost]
+		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> CreateUser(UsuarioModel reg)
 		{
 			if (!ModelState.IsValid)
@@ -45,12 +46,13 @@ namespace appPROYECTO_DSW_I.Controllers
 
 
 		///---------------------------------------NUEVO USUARIO (SOLO CLIENTE)
-        [ValidateAntiForgeryToken]
+        
 		public IActionResult CreateCliente()
 		{
 			return View(new UsuarioModel());
 		}
 		[HttpPost]
+		[ValidateAntiForgeryToken]
 		public IActionResult CreateCliente(UsuarioModel reg)
 		{
 			if (!ModelState.IsValid)

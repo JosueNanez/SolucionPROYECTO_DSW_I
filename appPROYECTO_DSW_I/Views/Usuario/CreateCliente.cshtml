@@ -19,30 +19,31 @@
         <div class="contform">
             <h1 class="text-center">Registro</h1>
             <form asp-action="CreateCliente">
+                @Html.AntiForgeryToken()
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="idUser" class="control-label"></label>
-                    <input asp-for="idUser" class="form-control" />
+                    <input asp-for="idUser" class="form-control" autocomplete="off"/>
                     <span asp-validation-for="idUser" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="nombreUser" class="control-label"></label>
-                    <input asp-for="nombreUser" class="form-control" />
+                    <input asp-for="nombreUser" class="form-control" autocomplete="off"/>
                     <span asp-validation-for="nombreUser" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="correoUser" class="control-label"></label>
-                    <input asp-for="correoUser" class="form-control" />
+                    <input asp-for="correoUser" class="form-control" autocomplete="off"/>
                     <span asp-validation-for="correoUser" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="claveUser" class="control-label"></label>
-                    <input asp-for="claveUser" class="form-control" />
+                    <input asp-for="claveUser" class="form-control" autocomplete="off"/>
                     <span asp-validation-for="claveUser" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="direcUser" class="control-label"></label>
-                    <input asp-for="direcUser" class="form-control" />
+                    <input asp-for="direcUser" class="form-control" autocomplete="off"/>
                     <span asp-validation-for="direcUser" class="text-danger"></span>
                 </div>
                 <div class="form-group" style="display:flex;">
