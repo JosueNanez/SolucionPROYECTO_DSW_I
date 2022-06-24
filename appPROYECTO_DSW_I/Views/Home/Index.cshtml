@@ -32,7 +32,11 @@
                     <li><a class="nav-link text-dark opc" asp-area="" asp-controller="Reporte" asp-action="ReporteProductosVendidos">Vendidos</a></li>
                 }
                 <!--li para el carrito-->
-                <li><a asp-action="Canasta" asp-controller="Carrito" class="nav-link text-dark opc">Carrito de Compras</a></li>
+                @if (User.IsInRole("2"))
+                {
+                    <li><a asp-action="Canasta" asp-controller="Carrito" class="nav-link text-dark opc">Carrito de Compras</a></li>
+                }
+
                 @if (User.IsInRole("1"))
                 {
                     <li><a class="nav-link text-dark opc" asp-area="" asp-controller="Usuario" asp-action="CreateUser">Nuevo Usuario</a></li>
