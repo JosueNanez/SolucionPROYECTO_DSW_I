@@ -143,20 +143,20 @@
                       <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                   </li>
           </div>
-      </div>
+      </div>-->
 
-      <script>
-    window.watsonAssistantChatOptions = {
-      integrationID: "e29c8ff6-c1e8-444f-981b-2e84fd319aed", // The ID of this integration.
-      region: "us-east", // The region your integration is hosted in.
-      serviceInstanceID: "ea1e159c-499d-4d78-9235-5f4ea67534cd", // The ID of your service instance.
-      onLoad: async (instance) => { await instance.render(); }
-    };
-    setTimeout(function(){
-      const t=document.createElement('script');
-      t.src="https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || 'latest') + "/WatsonAssistantChatEntry.js";
-      document.head.appendChild(t);
-    });
-      </script>-->
+    <script>
+        window.watsonAssistantChatOptions = {
+            integrationID: "e29c8ff6-c1e8-444f-981b-2e84fd319aed", // The ID of this integration.
+            region: "us-east", // The region your integration is hosted in.
+            serviceInstanceID: "ea1e159c-499d-4d78-9235-5f4ea67534cd", // The ID of your service instance.
+            onLoad: async (instance) => { await instance.render(); }
+        };
+        setTimeout(function () {
+            const t = document.createElement('script');
+            t.src = "https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || 'latest') + "/WatsonAssistantChatEntry.js";
+            document.head.appendChild(t);
+        });
+    </script>
 </body>
 </html>
