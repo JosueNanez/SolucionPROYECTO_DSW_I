@@ -58,10 +58,12 @@
                     <span class="material-symbols-outlined">
                         person
                     </span>
-                    @if (User.Identity.Name == null) { <a class="nav-link text-dark opci" asp-controller="Sesion" asp-action="LoginCookie">Iniciar Sesión</a> }
-                    @if (User.Identity.Name != null) { <a class="nav-link text-green opci"><strong>@User.Identity.Name</strong></a>}
-                    
-                    @*<a class="nav-link text-dark opci" asp-area="" asp-controller="Sesion" asp-action="Salir">
+                    @if (User.Identity.Name == null)
+                    {<a class="nav-link text-dark opci" asp-controller="Sesion" asp-action="LoginCookie">Iniciar Sesión</a>}
+                    @if (User.Identity.Name != null)
+                    {<a class="nav-link text-green opci"><strong>@User.Identity.Name</strong></a>}
+
+                @*<a class="nav-link text-dark opci" asp-area="" asp-controller="Sesion" asp-action="Salir">
                         Iniciar Sesión
                     </a>*@
                 </li>
@@ -121,26 +123,40 @@
         </div>
     </div>
 
-        <!--<div class="text-center">
-            <h1 class="display-4">Bienvenidos a FarmaSalud</h1>-->
-            @*<p>Learn about <a href="">building Web apps with ASP.NET Core</a>.</p>*@
-            <!--<div class="cont">
-                <a class="nav-link text-dark aa" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
+    <!--<div class="text-center">
+        <h1 class="display-4">Bienvenidos a FarmaSalud</h1>-->
+    @*<p>Learn about <a href="">building Web apps with ASP.NET Core</a>.</p>*@
+    <!--<div class="cont">
+              <a class="nav-link text-dark aa" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
 
-                <a class="nav-link text-dark aa" asp-area="" asp-controller="Producto" asp-action="listarProductoNombre">Productos</a>
-
-               
-                    <a class="nav-link text-dark aa" asp-area="" asp-controller="Usuario" asp-action="CreateUser">Nuevo Usuario</a>
-                
+              <a class="nav-link text-dark aa" asp-area="" asp-controller="Producto" asp-action="listarProductoNombre">Productos</a>
 
 
-                <a class="nav-link text-dark aa" asp-area="" asp-controller="Sesion" asp-action="Salir">Iniciar Sesión</a>
+                  <a class="nav-link text-dark aa" asp-area="" asp-controller="Usuario" asp-action="CreateUser">Nuevo Usuario</a>
 
 
-                <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                    </li>
-            </div>
-        </div>-->  
+
+              <a class="nav-link text-dark aa" asp-area="" asp-controller="Sesion" asp-action="Salir">Iniciar Sesión</a>
+
+
+              <li class="nav-item">
+                      <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                  </li>
+          </div>
+      </div>
+
+      <script>
+    window.watsonAssistantChatOptions = {
+      integrationID: "e29c8ff6-c1e8-444f-981b-2e84fd319aed", // The ID of this integration.
+      region: "us-east", // The region your integration is hosted in.
+      serviceInstanceID: "ea1e159c-499d-4d78-9235-5f4ea67534cd", // The ID of your service instance.
+      onLoad: async (instance) => { await instance.render(); }
+    };
+    setTimeout(function(){
+      const t=document.createElement('script');
+      t.src="https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || 'latest') + "/WatsonAssistantChatEntry.js";
+      document.head.appendChild(t);
+    });
+      </script>-->
 </body>
 </html>
